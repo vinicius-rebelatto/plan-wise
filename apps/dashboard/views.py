@@ -5,4 +5,4 @@ def home(request):
     contexto = {
         'mensagem': 'Bem-vindo ao meu site dinâmico!',
     }
-    return render(request, 'home.html', contexto)
+    return render(request, './dashboard.html', contexto)

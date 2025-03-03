@@ -1,5 +1,6 @@
 from decouple import config
 from pathlib import Path
+import os
 import apps
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -45,8 +46,7 @@ ROOT_URLCONF = 'PlanWise.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
-        ,
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -112,6 +112,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]  # Pasta global de arquivos estáticos
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Pasta para coletar arquivos estáticos em produção
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
