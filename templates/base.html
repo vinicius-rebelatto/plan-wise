@@ -6,18 +6,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}PlanWise{% endblock %}</title>
-    <!-- Bootstrap CSS local -->
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <h1>Meu Site</h1>
-        <nav>
-            <a href="/">Home</a>
-            <a href="/sobre/">Sobre</a>
-            <a href="/contato/">Contato</a>
-        </nav>
-    </header>
+  <div class="wrapper">
+    <aside id="sidebar">
+        <div class="d-flex justify-content-between p-4">
+            <div class="sidebar-logo">
+                <a href="#">PlanWise</a>
+            </div>
+            <button class="toggle-btn border-0" type="button">
+                <i id="icon" class='bx bx-chevrons-right'></i>
+            </button>
+        </div>
+    </aside>
+      <div class="main"></div>
+  </div>
 
     <main>
         <!-- Bloco de conteúdo dinâmico -->
@@ -29,5 +35,6 @@
         <p>&copy; 2023 Meu Sítio ‘web’. Todos os direitos reservados.</p>
     </footer>
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/script.js' %}"></script>
 </body>
 </html>
