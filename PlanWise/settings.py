@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'apps.dashboard',
+    'apps.accounts',
     'compressor'
 ]
 
@@ -41,6 +42,14 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+LOGIN_URL = 'http://localhost:8000/accounts/login/'  # URL para redirecionar usuários não autenticados
+LOGIN_REDIRECT_URL = 'http://localhost:8000/dashboard'  # URL para redirecionar após o login bem-sucedido
+LOGOUT_REDIRECT_URL = 'http://localhost:8000/accounts/login/'  # URL para redirecionar após o logout
 
 ROOT_URLCONF = 'PlanWise.urls'
 
