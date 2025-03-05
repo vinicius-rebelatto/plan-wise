@@ -1,40 +1,115 @@
 <!-- templates/base.html -->
-{% load static %}
+{% load static compress %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}PlanWise{% endblock %}</title>
+    <!-- Bootstrap CSS -->
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- SCSS compilado -->
+    {% compress css %}
+        <link rel="stylesheet" href="{% static 'scss/styles.scss' %}" type="text/x-scss">
+    {% endcompress %}
+    <!-- Boxicons -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <!-- Chart js -->
+    <script src="{% static 'js/chart.umd.min.js' %}"></script>
+
+    <!-- Logo -->
+    <link rel="shortcut icon" href="{% static 'images/logo.png' %}" type="image/x-icon">
 </head>
 <body>
   <div class="wrapper">
     <aside id="sidebar">
-        <div class="d-flex justify-content-between p-4">
+        <div class="top-size">
             <div class="sidebar-logo">
-                <a href="#">PlanWise</a>
+                <a href="/dashboard">PlanWise</a>
             </div>
             <button class="toggle-btn border-0" type="button">
                 <i id="icon" class='bx bx-chevrons-right'></i>
             </button>
         </div>
+        <ul class="sidebar-nav">
+            <li class="sidebar-item">
+                <a href="/#" class="sidebar-link">
+                    <i class='bx bx-home-circle'></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a href="/#" class="sidebar-link">
+                    <i class='bx bxs-user-account'></i>
+                    <span>Profile</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a href="/#" class="sidebar-link">
+                    <i class='bx bxs-layer'></i>
+                    <span>Task</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a href="/#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" data-bs-target="#auth" aria-expanded="false" aria-controls="auth">
+                    <i class='bx bxs-bug-alt'></i>
+                    <span>Auth</span>
+                </a>
+                <ul class="sidebar-dropdown list-unstyled collapse" id="auth" data-bs-parent="#sidebar">
+                    <li class="sidebar-item dropdown-item">
+                        <a href="/#" class="sidebar-link">Login</a>
+                    </li>
+                    <li class="sidebar-item dropdown-item">
+                        <a href="/#" class="sidebar-link">Register</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="sidebar-item">
+                <a href="/#" class="sidebar-link">
+                    <i class='bx bxs-bell-ring'></i>
+                    <span>Notification</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a href="/#" class="sidebar-link">
+                    <i class='bx bx-cog'></i>
+                    <span>Settings</span>
+                </a>
+            </li>
+        </ul>
+        <div class="sidebar-footer">
+            <a href="/#" class="sidebar-link">
+                <i class='bx bx-log-out'></i>
+                <span>Logout</span>
+            </a>
+        </div>
     </aside>
-      <div class="main"></div>
+      <main class="main">
+        <header class="top-size ">
+            <div class="input-group rounded w-50">
+              <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+              <span class="input-group-text border-0" id="search-addon">
+                <i class="bx bx-search"></i>
+              </span>
+            </div>
+        </header>
+        <div class="container-fluid p-4">
+            {% block content %}
+            {% endblock %}
+        </div>
+
+    </main>
   </div>
 
-    <main>
-        <!-- Bloco de conteúdo dinâmico -->
-        {% block content %}
-        {% endblock %}
-    </main>
 
-    <footer>
+
+    <footer class="p-4 d-flex justify-content-center footer-color2">
         <p>&copy; 2023 Meu Sítio ‘web’. Todos os direitos reservados.</p>
     </footer>
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'js/script.js' %}"></script>
+    {% block scripts %}
+    {% endblock %}
 </body>
 </html>

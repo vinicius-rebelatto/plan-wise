@@ -162,3 +162,7 @@ dmypy.json
 cython_debug/
 
 static
+
+node_modules
+
+staticfiles

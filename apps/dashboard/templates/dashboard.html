@@ -4,6 +4,95 @@
 {% block title %}Home - Meu Site{% endblock %}
 
 {% block content %}
-    <h2 class="bg-primary">{{ mensagem }}</h2>
-    <p>Este é o conteúdo dinâmico da página Home.</p>
+    <div class="border-bottom d-flex p-4">
+        <div class="w-66 p-4">
+            <h2>Gráfico de Barras</h2>
+            <canvas id="myChart" width="400" height="200"></canvas>
+        </div>
+        <div class="w-33 p-4 divider-vertical">
+            <h2>Gráfico de Barras</h2>
+            <canvas id="chart2" width="400" height="200"></canvas>
+        </div>
+    </div>
+    <section class="p-4" style="height: 500px;">
+
+    </section>
+
+{% endblock %}
+
+<!-- templates/dashboard.html -->
+{% block scripts %}
+<script>
+    // Dados do gráfico
+    const ctx = document.getElementById('myChart').getContext('2d');
+    const myChart = new Chart(ctx, {
+        type: 'line',  // Tipo de gráfico (bar, line, pie, etc.)
+        data: {
+            labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho'],  // Rótulos do eixo X
+            datasets: [{
+                label: 'Vendas Mensais',  // Legenda do dataset
+                data: [12, 19, 3, 5, 2, 3],  // Valores do eixo Y
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true  // Começar o eixo Y do zero
+                }
+            }
+        }
+    });
+    const ctx2 = document.getElementById('chart2').getContext('2d');
+    const chart2 = new Chart(ctx2, {
+        type: 'pie',  // Tipo de gráfico (bar, line, pie, etc.)
+        data: {
+            labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho'],  // Rótulos do eixo X
+            datasets: [{
+                label: 'Vendas Mensais',  // Legenda do dataset
+                data: [12, 19, 3, 5, 2, 3],  // Valores do eixo Y
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true  // Começar o eixo Y do zero
+                }
+            }
+        }
+    });
+</script>
 {% endblock %}

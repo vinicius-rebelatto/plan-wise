@@ -1,0 +1,17 @@
+{
+  "name": "planwise",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vinicius-rebelatto/plan-wise.git"
+  },
+  "private": true,
+  "dependencies": {
+    "mdb-ui-kit": "^8.2.0"
+  }
+}
