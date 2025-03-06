@@ -1,12 +1,63 @@
 <!-- accounts/templates/register.html -->
 
-{% extends 'base.html' %}
+{% extends 'auth.html' %}
 
 {% block content %}
 <h2>Registrar</h2>
-<form method="post">
+<form method="post" class="rounded p-4" name="register" id="register">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Registrar</button>
+
+    <!-- Campo de Nome -->
+    <div class="d-flex m-1">
+        <div class="form-group m-1">
+            {{ form.first_name }}
+            {% if form.first_name.errors %}
+                <div class="text-danger">
+                    {{ form.first_name.errors }}
+                </div>
+            {% endif %}
+        </div>
+        <div class="form-group m-1">
+            {{ form.last_name }}
+            {% if form.last_name.errors %}
+                <div class="text-danger">
+                    {{ form.last_name.errors }}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+
+    <!-- Campo de Email -->
+    <div class="form-group m-1">
+        {{ form.email }}
+        {% if form.email.errors %}
+            <div class="text-danger">
+                {{ form.email.errors }}
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Campo de Senha -->
+    <div class="form-group m-1">
+        {{ form.password1 }}
+        {% if form.password1.errors %}
+            <div class="text-danger">
+                {{ form.password1.errors }}
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Campo de Confirmação de Senha -->
+    <div class="form-group m-1">
+        {{ form.password2 }}
+        {% if form.password2.errors %}
+            <div class="text-danger">
+                {{ form.password2.errors }}
+            </div>
+        {% endif %}
+    </div>
+
+    <button type="submit" class="btn btn-primary m-2">Registrar</button>
 </form>
 {% endblock %}
