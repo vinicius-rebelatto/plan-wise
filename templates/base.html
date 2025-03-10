@@ -21,69 +21,72 @@
     <!-- Logo -->
     <link rel="shortcut icon" href="{% static 'images/logo.png' %}" type="image/x-icon">
 </head>
-<body>
+<body class="bg-light">
   <div class="wrapper">
     <aside id="sidebar">
-        <div class="top-size">
-            <div class="sidebar-logo">
-                <a href="/dashboard">PlanWise</a>
+        <div class="position-fixed">
+            <div class="top-size">
+                <div class="sidebar-logo">
+                    <a href="/dashboard">PlanWise</a>
+                </div>
+                <button class="toggle-btn border-0" type="button">
+                    <i id="icon" class='bx bx-chevrons-right'></i>
+                </button>
             </div>
-            <button class="toggle-btn border-0" type="button">
-                <i id="icon" class='bx bx-chevrons-right'></i>
-            </button>
+            <ul class="sidebar-nav">
+                <li class="sidebar-item">
+                    <a href="/dashboard/" class="sidebar-link">
+                        <i class='bx bx-home-circle'></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="/#" class="sidebar-link">
+                        <i class='bx bxs-user-account'></i>
+                        <span>Profile</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="expenses/" class="sidebar-link">
+                        <i class='bx bxs-layer'></i>
+                        <span>Spenses</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="/#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" data-bs-target="#auth" aria-expanded="false" aria-controls="auth">
+                        <i class='bx bxs-bug-alt'></i>
+                        <span>Auth</span>
+                    </a>
+                    <ul class="sidebar-dropdown list-unstyled collapse" id="auth" data-bs-parent="#sidebar">
+                        <li class="sidebar-item dropdown-item">
+                            <a href="/#" class="sidebar-link">Login</a>
+                        </li>
+                        <li class="sidebar-item dropdown-item">
+                            <a href="/#" class="sidebar-link">Register</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="sidebar-item">
+                    <a href="/#" class="sidebar-link">
+                        <i class='bx bxs-bell-ring'></i>
+                        <span>Notification</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="/#" class="sidebar-link">
+                        <i class='bx bx-cog'></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="sidebar-footer">
+                <a href="/#" class="sidebar-link">
+                    <i class='bx bx-log-out'></i>
+                    <span>Logout</span>
+                </a>
+            </div>
         </div>
-        <ul class="sidebar-nav">
-            <li class="sidebar-item">
-                <a href="/dashboard/" class="sidebar-link">
-                    <i class='bx bx-home-circle'></i>
-                    <span>Dashboard</span>
-                </a>
-            </li>
-            <li class="sidebar-item">
-                <a href="/#" class="sidebar-link">
-                    <i class='bx bxs-user-account'></i>
-                    <span>Profile</span>
-                </a>
-            </li>
-            <li class="sidebar-item">
-                <a href="expenses/" class="sidebar-link">
-                    <i class='bx bxs-layer'></i>
-                    <span>Spenses</span>
-                </a>
-            </li>
-            <li class="sidebar-item">
-                <a href="/#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" data-bs-target="#auth" aria-expanded="false" aria-controls="auth">
-                    <i class='bx bxs-bug-alt'></i>
-                    <span>Auth</span>
-                </a>
-                <ul class="sidebar-dropdown list-unstyled collapse" id="auth" data-bs-parent="#sidebar">
-                    <li class="sidebar-item dropdown-item">
-                        <a href="/#" class="sidebar-link">Login</a>
-                    </li>
-                    <li class="sidebar-item dropdown-item">
-                        <a href="/#" class="sidebar-link">Register</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="sidebar-item">
-                <a href="/#" class="sidebar-link">
-                    <i class='bx bxs-bell-ring'></i>
-                    <span>Notification</span>
-                </a>
-            </li>
-            <li class="sidebar-item">
-                <a href="/#" class="sidebar-link">
-                    <i class='bx bx-cog'></i>
-                    <span>Settings</span>
-                </a>
-            </li>
-        </ul>
-        <div class="sidebar-footer">
-            <a href="/#" class="sidebar-link">
-                <i class='bx bx-log-out'></i>
-                <span>Logout</span>
-            </a>
-        </div>
+
     </aside>
       <main class="main">
         <header class="top-size bg-quaternary-color">
