@@ -34,7 +34,7 @@
         </div>
         <ul class="sidebar-nav">
             <li class="sidebar-item">
-                <a href="/#" class="sidebar-link">
+                <a href="/dashboard/" class="sidebar-link">
                     <i class='bx bx-home-circle'></i>
                     <span>Dashboard</span>
                 </a>
@@ -46,9 +46,9 @@
                 </a>
             </li>
             <li class="sidebar-item">
-                <a href="/#" class="sidebar-link">
+                <a href="expenses/" class="sidebar-link">
                     <i class='bx bxs-layer'></i>
-                    <span>Task</span>
+                    <span>Spenses</span>
                 </a>
             </li>
             <li class="sidebar-item">
@@ -86,7 +86,8 @@
         </div>
     </aside>
       <main class="main">
-        <header class="top-size ">
+        <header class="top-size bg-quaternary-color">
+
             <div class="input-group rounded w-50">
               <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
               <span class="input-group-text border-0" id="search-addon">
@@ -94,7 +95,10 @@
               </span>
             </div>
         </header>
-        <div class="container-fluid p-4">
+
+
+
+        <div class="container-fluid p-5">
             {% block content %}
             {% endblock %}
         </div>

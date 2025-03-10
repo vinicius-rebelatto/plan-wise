@@ -6,7 +6,6 @@ from django.utils.translation import gettext_lazy as _
 
 class Account(AbstractUser):
     username = models.CharField(max_length=150, blank=True, null=True, unique=True)
-    # Campos adicionais (opcionais)
     telefone = models.CharField(max_length=15, blank=True, null=True)
 
     # Campos de data/hora
