@@ -1,15 +1,71 @@
 <!--apps/dashboard/templates/expenses.html-->
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block title %}Spenses{% endblock %}
 
 
 {% block content %}
 
-    <div class="p-2">
-        <div class="d-flex justify-content-between">
+    <div class="p-3 shadow bg-white">
+        <div class="table__header">
             <h2>Expenses</h2>
-            <a href="#" class="btn btn-primary bg-quaternary-color">Nova despesa</a>
+
+            <div class="input-group bg-secondary-color">
+                <input type="search" placeholder="Pesquisar...">
+                <i class="bx bx-search"></i>
+            </div>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+              <i class='bx bx-plus'></i>
+              <span>New Expense</span>
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">New Expense</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <!-- Formulário para adicionar nova despesa -->
+                    <form method="POST">
+                      {% csrf_token %}
+                      <div class="mb-3">
+                        <label for="name" class="form-label">Nome</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
+                      </div>
+                      <div class="mb-3">
+                        <label for="description" class="form-label">Descrição</label>
+                        <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                      </div>
+                      <div class="mb-3">
+                        <label for="category" class="form-label">Categoria</label>
+                        <select class="form-select" id="category" name="category" required>
+                          <option value="" disabled selected>Selecione uma categoria</option>
+                          {% for category in categories %}
+                            <option value="{{ category.id }}">{{ category.name }}</option>
+                          {% endfor %}
+
+                        </select>
+                      </div>
+                      <div class="mb-3">
+                        <label for="value" class="form-label">Valor</label>
+                        <input type="number" class="form-control" id="value" name="value" step="0.01" required>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+
         </div>
 
         <hr>
@@ -18,26 +74,25 @@
             <table>
                 <thead>
                     <tr>
-                        <th scope="col">Nome</th>
-                        <th scope="col">Descrição</th>
-                        <th scope="col">Categoria</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Valor</th>
-                        <th scope="col">Data de criação</th>
-                        <th scope="col">Data de modificação</th>
+                        <th scope="col"><p>Nome</p> <span class="icon-arrow"><i class='bx bx-sort-alt-2'></i></span></th>
+                        <th scope="col"><p>Descrição</p> <span class="icon-arrow"><i class='bx bx-sort-alt-2'></i></span></th>
+                        <th scope="col"><p>Categoria</p> <span class="icon-arrow"><i class='bx bx-sort-alt-2'></i></span></th>
+                        <th scope="col"><p>Status</p> <span class="icon-arrow"><i class='bx bx-sort-alt-2'></i></span></th>
+                        <th scope="col"><p>Valor</p> <span class="icon-arrow"><i class='bx bx-sort-alt-2'></i></span></th>
+                        <th scope="col"><p>Data de criação</p> <span class="icon-arrow"><i class='bx bx-sort-alt-2'></i></span></th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for expense in expenses %}
-                <tr>
+                        <tr>
                             <td>{{ expense.name }}</td>
-                            <td>{{ expense.description }}</td>
+                            <td><a href="http://localhost:8000/dashboard/expenses/{{ expense.id }}">{{ expense.description }}</a></td>
                             <td>{{ expense.category }}</td>
                             <td><p class="status p-1 rounded text-center {% if expense.status.name == 'Waiting for approval' %}text-bg-warning {% elif expense.status.name == 'Active' %}text-bg-success {% elif expense.status.name == 'Rejected' %}text-bg-danger {% elif expense.status.name == 'Closed' %} text-bg-secondary{% endif %}">{{ expense.status }}</p></td>
-                            <td>{{ expense.value|floatformat:2 }}</td>
-                            <td>{{ expense.created_at|date:"d/m/Y H:i" }}</td>
-                            <td>{{ expense.updated_at|date:"d/m/Y H:i" }}</td>
-                </tr>
+                            <td>R${{ expense.value|floatformat:2 }}</td>
+                            <td>{{ expense.created_at }}</td>
+                        </tr>
+
                     {% endfor %}
                 </tbody>
 
@@ -50,4 +105,5 @@
 {% endblock %}
 
 {% block scripts %}
+    <script src="{% static 'js/search_table.js' %}" defer></script>
 {% endblock %}

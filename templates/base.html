@@ -24,7 +24,7 @@
 <body class="bg-light">
   <div class="wrapper">
     <aside id="sidebar">
-        <div class="position-fixed">
+        <div class="position-fixed sidebar-fix">
             <div class="top-size">
                 <div class="sidebar-logo">
                     <a href="/dashboard">PlanWise</a>
@@ -47,7 +47,7 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a href="expenses/" class="sidebar-link">
+                    <a href="http://localhost:8000/dashboard/expenses/" class="sidebar-link">
                         <i class='bx bxs-layer'></i>
                         <span>Spenses</span>
                     </a>
@@ -89,19 +89,20 @@
 
     </aside>
       <main class="main">
-        <header class="top-size bg-quaternary-color">
+        <header class="top-size text-center bg-quaternary-color text-light d-flex justify-content-center align-items-center">
 
-            <div class="input-group rounded w-50">
+            <!--<div class="input-group rounded w-50">
               <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
               <span class="input-group-text border-0" id="search-addon">
                 <i class="bx bx-search"></i>
               </span>
-            </div>
+            </div>-->
+            <h1>PlanWise</h1>
         </header>
 
 
 
-        <div class="container-fluid p-5">
+        <div class="container-fluid p-5 bg-light">
             {% block content %}
             {% endblock %}
         </div>

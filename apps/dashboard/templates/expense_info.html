@@ -1,0 +1,20 @@
+<!--apps/dashboard/templates/view.html -->
+
+{% extends 'view_item.html' %}
+
+{% block title %}View{% endblock %}
+
+{% block return %}
+    <div class="return-group">
+        <a href="http://localhost:8000/dashboard/expenses/">
+            <i class="bx bx-arrow-back"></i>
+            <span>Return</span>
+        </a>
+    </div>
+
+{% endblock %}
+
+{% block item-info %}
+
+    <h1>New Expense</h1>
+{% endblock %}
