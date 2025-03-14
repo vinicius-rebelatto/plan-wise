@@ -1,0 +1,16 @@
+.return-group {
+  width: fit-content;
+  padding: .4rem;
+  background-color: $quaternary-color;
+  border-radius: 8px;
+}
+
+.return-group a{
+  color: $secondary-color;
+}
+
+.return-group i {
+  margin-left: .2rem;
+  display: inline-flex;
+
+}
