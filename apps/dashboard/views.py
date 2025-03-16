@@ -53,6 +53,11 @@ def all_expenses(request):
     return render(request, './expenses.html', contexto)
 
 
+def create_expense(request):
+
+    return render(request, './create_expense.html')
+
+
 def expense_detail(request, expense_id):
     contexto = {
         'expense': Expense.objects.get(pk=expense_id),

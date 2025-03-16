@@ -4,12 +4,25 @@
 
 {% block title %}View{% endblock %}
 
-
-
-
-
 {% block content %}
-    {% block return %}{% endblock %} <!--Há a opção de aplicar um retorno para a última página-->
-
-    {% block item-info %}{% endblock %}
+    <div class="p-4 bg-light shadow">
+        {% block return %}{% endblock %} <!--Há a opção de aplicar um retorno para a última página-->
+        <section class="content-info">
+            <div class="d-flex justify-content-between">
+                <div class="item-info">
+                    <h5>{% block action-title %}{% endblock %}</h5>
+                    <hr>
+                    <div class="item-form">
+                        {% block item-form %}{% endblock %}
+                    </div>
+                </div>
+                <div class="float-info">
+                    {% block  float-info%}{% endblock %}
+                </div>
+            </div>
+            <div class="item-graphic">
+                Grafics
+            </div>
+        </section>
+    </div>
 {% endblock %}
