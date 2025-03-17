@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
 from apps.accounts.models import Account
-from apps.dashboard.models import Expense, ExpenseCategory, ExpenseStatus
+from apps.dashboard.models import Expense, ExpenseCategory, ExpenseStatus, Recurrency
 
 
 @login_required
@@ -54,8 +54,13 @@ def all_expenses(request):
 
 
 def create_expense(request):
-
-    return render(request, './create_expense.html')
+    categories = ExpenseCategory.objects.all()
+    recorrencies = Recurrency.objects.all()
+    contexto = {
+        'categories': categories,
+        'recorrencies': recorrencies,
+    }
+    return render(request, './create_expense.html', contexto)
 
 
 def expense_detail(request, expense_id):

@@ -20,35 +20,64 @@
         {% csrf_token %}
         <div class="form-labels">
             <div class="item-label">
-                <label for="name" class="form-label">id</label>
-                <input type="text" id="name" name="name" readonly placeholder="{{ expense.id }}">
-            </div><div class="item-label">
-                <label for="name" class="form-label">Expense</label>
-                <input type="text" id="name" name="name" readonly placeholder="{{ expense.name }}">
-            </div><div class="item-label">
-                <label for="name" class="form-label">Description</label>
-                <input type="text" id="name" name="name" readonly placeholder="{{ expense.description }}">
-            </div><div class="item-label">
-                <label for="name" class="form-label">Category</label>
-                <input type="text" id="name" name="name" readonly placeholder="{{ expense.category }}">
-            </div><div class="item-label">
-                <label for="name" class="form-label">Status</label>
-                <input type="text" id="name" name="name" readonly placeholder="{{ expense.status }}">
-            </div><div class="item-label">
-                <label for="name" class="form-label">Value</label>
-                <input type="text" id="name" name="name" readonly placeholder="{{ expense.value }}">
-            </div><div class="item-label">
-                <label for="name" class="form-label">Created At</label>
-                <input type="text" id="name" name="name" readonly placeholder="{{ expense.created_at|date:'d/m/Y' }}">
-            </div><div class="item-label">
-                <label for="name" class="form-label">Last Update</label>
-                <input type="text" id="name" name="name" readonly placeholder="{{ expense.updated_at|date:'d/m/Y' }}">
+                <label for="expense" class="form-label">Expense</label>
+                <input type="text" id="expense" name="expense"  placeholder="Expense name..." required>
+            </div>
+            <div class="item-label">
+                <label for="description" class="form-label">Description</label>
+                <input type="text" id="description" name="description"  placeholder="Description..." required>
+            </div>
+            <div class="item-label">
+                <label for="category" class="form-label">Category</label>
+                <select name="category" id="category" required>
+                    <option value="" disabled selected>Selecione uma categoria</option>
+                    {% for category in categories %}
+                        <option value="{{ category.id }}">{{ category.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="item-label">
+                <label for="fixed_expense" class="form-label">Custo fixo</label>
+                <select name="fixed_expense" id="fixed_expense" required>
+                    <option value="" disabled selected>Custo fixo</option>
+                    <option value="True">Yes</option>
+                    <option value="False">No</option>
+                </select>
+            </div>
+            <div class="item-label">
+                <label for="fixed_term" class="form-label">Prazo determinado</label>
+                <select name="fixed_term" id="fixed_term" required>
+                    <option value="" disabled selected>Prazo determinado</option>
+                    <option value="True">Yes</option>
+                    <option value="False">No</option>
+                </select>
+            </div>
+            <div class="item-label">
+                <label for="from-date" class="form-label">Data de início</label>
+                <input type="date" id="from-date" name="from-date" required>
+            </div>
+            <div class="item-label">
+                <label for="value" class="form-label">Valor</label>
+                <input type="number" id="value" name="value"  placeholder="Value..." required>
+            </div>
+            <div class="item-label">
+                <label for="installments" class="form-label">Parcelas</label>
+                <input type="number" id="installments" name="installments"  placeholder="Installments...">
+            </div>
+            <div class="item-label">
+                <label for="recurrency" class="form-label">Recorrência</label>
+                <select name="recurrency" id="recurrency">
+                    <option value="" disabled selected>Selecione uma recorrência</option>
+                    {% for recorrencie in recorrencies %}
+                        <option value="{{ recorrencie.id }}">{{ recorrencie.name }}</option>
+                    {% endfor %}
+                </select>
             </div>
         </div>
         <hr>
         <div class="d-flex justify-content-end">
-            <button type="submit" class="btn-group-danger me-3">Approve</button>
-            <button type="submit" class="btn-group-secondary">Approve</button>
+            <button type="button" class="btn-group-danger me-3">Cancel</button>
+            <button type="submit" class="btn-group-secondary">Create</button>
         </div>
 
     </form>

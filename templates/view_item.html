@@ -6,7 +6,12 @@
 
 {% block content %}
     <div class="p-4 bg-light shadow">
-        {% block return %}{% endblock %} <!--Há a opção de aplicar um retorno para a última página-->
+        <div class="mb-3">
+            <a href="http://localhost:8000/dashboard/expenses/" class="btn-group-primary">
+                <i class="bx bx-arrow-back"></i>
+                <span>Return</span>
+            </a>
+        </div>
         <section class="content-info">
             <div class="d-flex justify-content-between">
                 <div class="item-info">

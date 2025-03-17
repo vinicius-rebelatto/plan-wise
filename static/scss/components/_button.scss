@@ -4,8 +4,7 @@
   align-items: center;
   width: fit-content;
   background-color: $quaternary-color;
-  padding: .3rem;
-  margin-bottom: 10px;
+  padding: .4rem;
   border-radius: 5px;
   color: $secondary-color;
   font-size: 14px;
@@ -13,7 +12,7 @@
 
 .btn-group-secondary {
   background-color: $secondary-color;
-  padding: .3rem;
+  padding: .4rem;
   margin-bottom: 10px;
   border-radius: 5px;
   color: $quaternary-color;
@@ -36,12 +35,9 @@
   padding: 0;
 }
 
-.btn-group-primary:hover {
+.btn-group-secondary:hover, .btn-group-danger:hover, .btn-group-primary:hover {
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
 }
 
-.btn-group-secondary:hover {
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 8px 0 rgba(0, 0, 0, 0.19);
-  background-color: $tertiary-color;
-  color: $primary-color;
-}
+
+

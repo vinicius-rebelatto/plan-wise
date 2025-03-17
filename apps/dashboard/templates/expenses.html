@@ -16,56 +16,11 @@
                 <input type="search" placeholder="Pesquisar...">
                 <i class="bx bx-search"></i>
             </div>
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-              <i class='bx bx-plus'></i>
-              <span>New Expense</span>
-            </button>
 
-            <!-- Modal -->
-            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-              <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">New Expense</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                    <!-- Formulário para adicionar nova despesa -->
-                    <form method="POST">
-                      {% csrf_token %}
-                      <div class="mb-3">
-                        <label for="name" class="form-label">Nome</label>
-                        <input type="text" class="form-control" id="name" name="name" required>
-                      </div>
-                      <div class="mb-3">
-                        <label for="description" class="form-label">Descrição</label>
-                        <textarea class="form-control" id="description" name="description" rows="3"></textarea>
-                      </div>
-                      <div class="mb-3">
-                        <label for="category" class="form-label">Categoria</label>
-                        <select class="form-select" id="category" name="category" required>
-                          <option value="" disabled selected>Selecione uma categoria</option>
-                          {% for category in categories %}
-                            <option value="{{ category.id }}">{{ category.name }}</option>
-                          {% endfor %}
-
-                        </select>
-                      </div>
-                      <div class="mb-3">
-                        <label for="value" class="form-label">Valor</label>
-                        <input type="number" class="form-control" id="value" name="value" step="0.01" required>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-primary">Salvar</button>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
-
+            <a href="http://localhost:8000/dashboard/expenses/create/" class="btn-group-primary">
+                <i class="bx bx-plus"></i>
+                <span>New Expense</span>
+            </a>
         </div>
 
         <hr>
