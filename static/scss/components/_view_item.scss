@@ -1,3 +1,5 @@
+//static/components/_view_item.scss
+
 .content-info {
   width: 100%;
   min-height: 500px;
@@ -42,8 +44,41 @@
     flex-direction: column;
 }
 
-.item-label input {
+.item-label input, .item-label select, .item-label input[type="date"] {
     width: 100%; /* Ocupa 100% da largura do contêiner */
     max-width: 100%;
     box-sizing: border-box; /* Inclui padding e border na largura */
+    padding: 3px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #333;
+    outline: none;
+}
+
+.item-label input:focus,
+.item-label select:focus,
+.item-label input[type="date"]:focus {
+  border-color: #66afe9; /* Cor da borda ao focar */
+  box-shadow: 0 0 5px rgba(102, 175, 233, 0.5); /* Sombra ao focar */
+}
+
+/* Estilo específico para o select */
+.item-label select {
+  appearance: none; /* Remove a aparência padrão do select */
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23333'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E"); /* Ícone de seta */
+  background-repeat: no-repeat;
+  background-position: right 8px center; /* Posição do ícone */
+  background-size: 12px; /* Tamanho do ícone */
+}
+
+/* Estilo específico para o input[type="date"] */
+.item-label input[type="date"] {
+  appearance: none; /* Remove a aparência padrão */
+}
+
+/* Estilo para o placeholder */
+.item-label input::placeholder,
+.item-label select option[disabled] {
+  color: #999; /* Cor do placeholder */
 }

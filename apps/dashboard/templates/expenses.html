@@ -25,34 +25,41 @@
 
         <hr>
         <!-- Tabela para exibir as despesas -->
-        <section class="table-body">
-            <table>
-                <thead>
-                    <tr>
-                        <th scope="col"><p>Nome</p> <span class="icon-arrow"><i class='bx bx-sort-alt-2'></i></span></th>
-                        <th scope="col"><p>Descrição</p> <span class="icon-arrow"><i class='bx bx-sort-alt-2'></i></span></th>
-                        <th scope="col"><p>Categoria</p> <span class="icon-arrow"><i class='bx bx-sort-alt-2'></i></span></th>
-                        <th scope="col"><p>Status</p> <span class="icon-arrow"><i class='bx bx-sort-alt-2'></i></span></th>
-                        <th scope="col"><p>Valor</p> <span class="icon-arrow"><i class='bx bx-sort-alt-2'></i></span></th>
-                        <th scope="col"><p>Data de criação</p> <span class="icon-arrow"><i class='bx bx-sort-alt-2'></i></span></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for expense in expenses %}
+        <div class="table-container">
+            <section class="table-body">
+                <table>
+                    <thead>
                         <tr>
-                            <td>{{ expense.name }}</td>
-                            <td><a href="http://localhost:8000/dashboard/expenses/{{ expense.id }}">{{ expense.description }}</a></td>
-                            <td>{{ expense.category }}</td>
-                            <td><p class="status p-1 rounded text-center {% if expense.status.name == 'Waiting for approval' %}text-bg-warning {% elif expense.status.name == 'Active' %}text-bg-success {% elif expense.status.name == 'Rejected' %}text-bg-danger {% elif expense.status.name == 'Closed' %} text-bg-secondary{% endif %}">{{ expense.status }}</p></td>
-                            <td>R${{ expense.value|floatformat:2 }}</td>
-                            <td>{{ expense.created_at }}</td>
+                            <th scope="col"><p>Despesa</p> <span class="icon-arrow"><i class='bx bx-sort-alt-2'></i></span></th>
+                            <th scope="col"><p>Descrição</p> <span class="icon-arrow"><i class='bx bx-sort-alt-2'></i></span></th>
+                            <th scope="col"><p>Categoria</p> <span class="icon-arrow"><i class='bx bx-sort-alt-2'></i></span></th>
+                            <th scope="col"><p>Status</p> <span class="icon-arrow"><i class='bx bx-sort-alt-2'></i></span></th>
+                            <th scope="col"><p>Valor</p> <span class="icon-arrow"><i class='bx bx-sort-alt-2'></i></span></th>
+                            <th scope="col"><p>Data de criação</p> <span class="icon-arrow"><i class='bx bx-sort-alt-2'></i></span></th>
                         </tr>
+                    </thead>
+                    <tbody>
+                        {% for expense in expenses %}
+                            <tr>
+                                <td>{{ expense.name }}</td>
+                                <td><a href="http://localhost:8000/dashboard/expenses/{{ expense.id }}">{{ expense.description }}</a></td>
+                                <td>{{ expense.category }}</td>
+                                <td><p class="status p-1 rounded text-center {% if expense.status.name == 'Waiting for approval' %}text-bg-warning {% elif expense.status.name == 'Active' %}text-bg-success {% elif expense.status.name == 'Rejected' %}text-bg-danger {% elif expense.status.name == 'Closed' %} text-bg-secondary{% endif %}">{{ expense.status }}</p></td>
+                                <td>R${{ expense.value|floatformat:2 }}</td>
+                                <td>{{ expense.created_at|date:'d/m/Y' }}</td>
+                            </tr>
 
-                    {% endfor %}
-                </tbody>
+                        {% endfor %}
+                    </tbody>
 
-            </table>
-        </section>
+                </table>
+            </section>
+            <div class="">
+                <h5>Gráfico de Barras</h5>
+                <canvas id="chart2" width="300" height="150"></canvas>
+            </div>
+        </div>
+
 
     </div>
 
@@ -61,4 +68,5 @@
 
 {% block scripts %}
     <script src="{% static 'js/search_table.js' %}" defer></script>
+    <script src="{% static 'js/chart.js' %}" defer></script>
 {% endblock %}

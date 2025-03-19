@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
 from apps.accounts.models import Account
-from apps.dashboard.models import Expense, ExpenseCategory, ExpenseStatus, Recurrency
+from apps.dashboard.models import Expense, ExpenseCategory, ExpenseStatus, Recurrency, ExpenseRequest, ApprovalStatus
 
 
 @login_required
@@ -17,33 +17,6 @@ def home(request):
 
 @login_required
 def all_expenses(request):
-    if request.method == 'POST':
-        # Tratando o envio de nova despesa
-        name = request.POST['name']
-        description = request.POST['description']
-        category_id = request.POST['category']
-        value = request.POST['value']
-
-        try:
-            # Validando e criando a nova despesa
-            category = ExpenseCategory.objects.get(pk=category_id)
-            status = ExpenseStatus.objects.get(pk=1)
-            Expense.objects.create(
-                name=name,
-                description=description,
-                category=category,
-                status=status,
-                value=value,
-                account=request.user  # Usando request.user diretamente
-            )
-            messages.success(request, 'A nova despesa foi cadastrada com sucesso!')
-            return redirect('all_expenses')
-        except ExpenseCategory.DoesNotExist:
-            messages.error(request, 'Categoria de despesa não encontrada.')  # Funcionará agora
-        except Exception as e:
-            messages.error(request, f'Erro ao cadastrar a despesa: {e}')  # Funcionará agora
-
-    # Recupera todos os dados da tabela dashboard_expense no banco de dados ou no caso a model Expenses
     expenses = Expense.objects.all()
     categories = ExpenseCategory.objects.all()
     contexto = {
@@ -52,19 +25,71 @@ def all_expenses(request):
     }
     return render(request, './expenses.html', contexto)
 
+@login_required()
+def new_expense(request):
+    if request.method == 'POST':
+        name = request.POST['expense']
+        description = request.POST['description']
+        category_id = request.POST['category']
+        user = request.user
+        expense = create_expenses(name, description, category_id, user)
+        fixed_cost = request.POST['fixed_cost']
+        fixed_term = request.POST['fixed_term']
+        print(f"Fixed cost: {fixed_cost}, term: {fixed_term}")
+        from_date = request.POST['from-date']
+        recurrency = request.POST['recurrency']
+        total_value = request.POST['total-value']
+        installments = request.POST['installments']
+        installments_value = request.POST['installments-value']
+        create_expense_request(expense, fixed_cost, fixed_term, from_date, recurrency, total_value, installments, installments_value)
+        return redirect('expense_detail', expense.id)
 
-def create_expense(request):
     categories = ExpenseCategory.objects.all()
-    recorrencies = Recurrency.objects.all()
+    recurrencies = Recurrency.objects.all()
     contexto = {
         'categories': categories,
-        'recorrencies': recorrencies,
+        'recurrencies': recurrencies,
     }
     return render(request, './create_expense.html', contexto)
 
 
+@login_required()
 def expense_detail(request, expense_id):
     contexto = {
         'expense': Expense.objects.get(pk=expense_id),
     }
     return render(request, './expense_info.html', contexto)
+
+
+
+
+def create_expenses(name, description, category_id, user):
+    # Validando e criando a nova despesa
+    category = ExpenseCategory.objects.get(pk=category_id)
+    status = ExpenseStatus.objects.get(pk=1)
+    expense = Expense.objects.create(
+        name=name,
+        description=description,
+        category=category,
+        status=status,
+        account=user  # Usando request.user diretamente
+    )
+    expense.save()
+    return expense
+
+def create_expense_request(expense, fixed_cost, fixed_term, from_date, recurrency, total_value, installments, installments_value):
+    approval_status =  ApprovalStatus.objects.get(pk=1)
+    recurrency = Recurrency.objects.get(pk=recurrency)
+    expense_req = ExpenseRequest.objects.create(
+        expense=expense,
+        account_id=expense.account.id,
+        fixed_cost=fixed_cost,
+        fixed_term=fixed_term,
+        from_date=from_date,
+        recurrency=recurrency,
+        total_value=total_value,
+        installments=installments,
+        installments_value = installments_value,
+        approval_status=approval_status
+    )
+    expense_req.save()

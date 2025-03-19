@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Função de ordenação
     table_headings.forEach((head, i) => {
         head.onclick = () => {
-            // Remove a classe 'active' de todos os cabeçalhos
+            // Remove a classe 'ative' de todos os cabeçalhos
             table_headings.forEach((h) => h.classList.remove('active', 'asc', 'desc'));
 
             // Alterna entre 'asc' e 'desc'
@@ -70,12 +70,12 @@ document.addEventListener('DOMContentLoaded', () => {
         rows.forEach((row) => tbody.appendChild(row));
     }
 
-    // Função para verificar se uma string é uma data
+    // Função para verificar se uma ‘string’ é uma data
     function isDate(text) {
         return /^\d{2}\/\d{2}\/\d{4} \d{2}:\d{2}$/.test(text); // Formato: dd/MM/yyyy HH:mm
     }
 
-    // Função para converter uma string em um objeto Date
+    // Função para converter uma ‘string’ num objeto Date
     function parseDate(text) {
         const [date, time] = text.split(' ');
         const [day, month, year] = date.split('/');
