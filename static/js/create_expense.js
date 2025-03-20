@@ -1,6 +1,5 @@
-//static/js/create_expense.js
-
-document.addEventListener('DOMContentLoaded', function (qualifiedName, value) {
+document.addEventListener('DOMContentLoaded', function () {
+    // Seletores
     const fixedTerm = document.querySelector('#fixed_term');
     const installmentsField = document.querySelector('#installments-field');
     const installmentsSelect = document.querySelector('#installments');
@@ -10,86 +9,92 @@ document.addEventListener('DOMContentLoaded', function (qualifiedName, value) {
     const installmentsValueSelect = document.querySelector('#installments-value');
     const recurrency = document.querySelector('#recurrency');
 
+    // Funções de Atualização de Campos
+    function toggleField(field, isVisible, isRequired = false, isReadonly = false) {
+        field.style.display = isVisible ? 'flex' : 'none';
+        if (isRequired) {
+            field.querySelector('input, select').setAttribute('required', true);
+        } else {
+            field.querySelector('input, select').removeAttribute('required');
+        }
+        if (isReadonly) {
+            field.querySelector('input, select').setAttribute('readonly', true);
+        } else {
+            field.querySelector('input, select').removeAttribute('readonly');
+        }
+    }
 
-    function fixedTermChange() {
+    function toggleRecurrency(isDisabled, value = null) {
+        recurrency.disabled = isDisabled;
+        if (value !== null) {
+            recurrency.value = value;
+        }
+    }
+
+    // Funções de Lógica
+    function handleFixedTermChange() {
         if (fixedTerm.value === 'True') {
-            installmentsField.style.display = 'flex';
-            installmentsSelect.setAttribute('required', true);
-            totalValueField.style.display = 'flex';
-            totalValueSelect.setAttribute('required', true);
-            installmentsValueField.style.display = 'flex';
-            installmentsSelect.setAttribute('required', true);
-            recurrency.disabled = false;
-            recurrencyChange();
+            toggleField(installmentsField, true, true);
+            toggleField(totalValueField, true, true);
+            toggleField(installmentsValueField, true, true);
+            toggleRecurrency(false);
+            handleRecurrencyChange();
         } else if (fixedTerm.value === 'False') {
-            installmentsValueField.style.display = 'flex';
-            installmentsSelect.setAttribute('required', true);
-            installmentsField.style.display = 'none';
-            installmentsSelect.removeAttribute('required');
-            totalValueField.style.display = 'none';
-            totalValueSelect.removeAttribute('required');
-
-            // Define a recorrência como mensal e desabilita o campo
-            recurrency.value = 2; // Recorrência mensal
-            recurrency.disabled = true; // Desabilita o campo de recorrência
-
-            // Define o número de parcelas como 180 (15 anos)
-            installmentsSelect.value = 180;
-
+            toggleField(installmentsValueField, true, true);
+            toggleField(installmentsField, false);
+            toggleField(totalValueField, false);
+            toggleRecurrency(true, 2); // Define recorrência mensal e desabilita
+            installmentsSelect.value = 180; // Define 180 parcelas (15 anos)
         } else {
-            installmentsValueField.style.display = 'none';
-            installmentsValueSelect.removeAttribute('required');
-            installmentsField.style.display = 'none';
-            installmentsSelect.removeAttribute('required');
-            totalValueField.style.display = 'none';
-            totalValueSelect.removeAttribute('required');
-            recurrency.disabled = false;
+            toggleField(installmentsValueField, false);
+            toggleField(installmentsField, false);
+            toggleField(totalValueField, false);
+            toggleRecurrency(false);
         }
     }
 
-    function recurrencyChange() {
-        totalValueChange();
-        if (recurrency.value === '1') {//recorrencia unica
+    function handleRecurrencyChange() {
+        updateTotalValue();
+        if (recurrency.value === '1') { // Recorrência única
             installmentsSelect.value = 1;
-            installmentsSelect.setAttribute('readonly', 'readonly')
-            installmentsField.style.display = 'none';
-            installmentsValueSelect.setAttribute('readonly', 'readonly')
-            installmentsValueField.style.display = 'none';
+            toggleField(installmentsField, false, false, true);
+            toggleField(installmentsValueField, false, false, true);
         } else {
-            installmentsSelect.removeAttribute('readonly')
-            installmentsValueSelect.removeAttribute('readonly')
-            installmentsField.style.display = 'flex';
-            installmentsValueField.style.display = 'flex';
+            toggleField(installmentsField, true);
+            toggleField(installmentsValueField, true);
         }
     }
 
-    function totalValueChange() {
+    function updateTotalValue() {
         const totalValue = parseFloat(totalValueSelect.value);
         const installments = parseFloat(installmentsSelect.value);
         if (!isNaN(totalValue) && !isNaN(installments) && totalValue > 0 && installments > 0) {
-            const installmentValue = totalValueSelect.value / installmentsSelect.value;
+            const installmentValue = totalValue / installments;
             installmentsValueSelect.value = installmentValue.toFixed(2);
         } else {
             installmentsValueSelect.value = '';
         }
     }
 
-    function installmentsValueChange() {
+    function updateInstallmentsValue() {
         const installmentsValue = parseFloat(installmentsValueSelect.value);
         const installments = parseFloat(installmentsSelect.value);
         if (!isNaN(installmentsValue) && !isNaN(installments) && installmentsValue > 0 && installments > 0) {
-            const totalValue = installmentsValue * installmentsSelect.value;
+            const totalValue = installmentsValue * installments;
             totalValueSelect.value = totalValue.toFixed(2);
         } else {
             totalValueSelect.value = '';
         }
     }
 
-    fixedTermChange();
+    // Inicialização
+    handleFixedTermChange();
+    handleRecurrencyChange();
 
-    fixedTerm.addEventListener('change', fixedTermChange);
-    recurrency.addEventListener('change', recurrencyChange);
-    totalValueSelect.addEventListener('input', totalValueChange);
-    installmentsSelect.addEventListener('input', totalValueChange);
-    installmentsValueSelect.addEventListener('input', installmentsValueChange);
-})
+    // Event Listeners
+    fixedTerm.addEventListener('change', handleFixedTermChange);
+    recurrency.addEventListener('change', handleRecurrencyChange);
+    totalValueSelect.addEventListener('input', updateTotalValue);
+    installmentsSelect.addEventListener('input', updateTotalValue);
+    installmentsValueSelect.addEventListener('input', updateInstallmentsValue);
+});

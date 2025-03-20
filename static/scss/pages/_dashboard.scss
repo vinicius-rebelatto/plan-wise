@@ -1,18 +1,12 @@
+//static/scss/pages/_dashboard.scss
+
 .wrapper {
     display: flex;
-}
-
-.main {
-    min-height: 100vh;
-    width: 100%;
-    overflow: hidden;
-    background-color: $secondary-color;
 }
 
 .top-size {
     height: 90px;
     min-height: 90px;
-    border-bottom: 1px solid $tertiary-color;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -20,6 +14,6 @@
 }
 
 .footer-color2 {
-    background-color: $primary-color;
+    background-color: $quaternary-color;
     color: #fff;
 }

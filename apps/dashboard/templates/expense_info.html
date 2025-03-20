@@ -2,6 +2,8 @@
 
 {% extends 'view_item.html' %}
 
+{% load static %}
+
 {% block title %}View{% endblock %}
 
 
@@ -13,34 +15,75 @@
         {% csrf_token %}
         <div class="form-labels">
             <div class="item-label">
-                <label for="name" class="form-label">id</label>
-                <input type="text" id="name" name="name" readonly placeholder="{{ expense.id }}">
-            </div><div class="item-label">
                 <label for="name" class="form-label">Expense</label>
-                <input type="text" id="name" name="name" readonly placeholder="{{ expense.name }}">
-            </div><div class="item-label">
+                <input type="text" id="name" name="name" readonly value="{{ expense.name }}">
+            </div>
+            <div class="item-label">
                 <label for="name" class="form-label">Description</label>
-                <input type="text" id="name" name="name" readonly placeholder="{{ expense.description }}">
-            </div><div class="item-label">
+                <input type="text" id="name" name="name" readonly value="{{ expense.description }}">
+            </div>
+            <div class="item-label">
                 <label for="name" class="form-label">Category</label>
-                <input type="text" id="name" name="name" readonly placeholder="{{ expense.category }}">
-            </div><div class="item-label">
+                <input type="text" id="name" name="name" readonly value="{{ expense.category }}">
+            </div>
+            <div class="item-label">
                 <label for="name" class="form-label">Status</label>
-                <input type="text" id="name" name="name" readonly placeholder="{{ expense.status }}">
-            </div><div class="item-label">
-                <label for="name" class="form-label">Value</label>
-                <input type="text" id="name" name="name" readonly placeholder="{{ expense.value }}">
-            </div><div class="item-label">
+                <input type="text" id="name" name="name" readonly value="{{ expense.status }}">
+            </div>
+            <div class="item-label">
                 <label for="name" class="form-label">Created At</label>
-                <input type="text" id="name" name="name" readonly placeholder="{{ expense.created_at|date:'d/m/Y' }}">
-            </div><div class="item-label">
+                <input type="text" id="name" name="name" readonly value="{{ expense.created_at|date:'d/m/Y' }}">
+            </div>
+            <div class="item-label">
                 <label for="name" class="form-label">Last Update</label>
-                <input type="text" id="name" name="name" readonly placeholder="{{ expense.updated_at|date:'d/m/Y' }}">
+                <input type="text" id="name" name="name" readonly value="{{ expense.updated_at|date:'d/m/Y' }}">
+            </div>
+            <div class="item-label">
+                <label for="fixed_cost" class="form-label">Custo fixo</label>
+                <select name="fixed_cost" id="fixed_cost" required disabled>
+                    <option value="{{ expense_request.fixed_cost }}" disabled selected>{{ expense_request.fixed_cost }}</option>
+                    <option value=True>É custo fixo</option>
+                    <option value=False>É custo variável</option>
+                </select>
+            </div>
+            <div class="item-label">
+                <label for="fixed_term" class="form-label">Prazo determinado</label>
+                <select name="fixed_term" id="fixed_term" required disabled>
+                    <option value="{{ expense_request.fixed_term }}" disabled selected>{{ expense_request.fixed_term }}</option>
+                    <option value=True>Prazo determinado</option>
+                    <option value=False>Prazo indeterminado</option>
+                </select>
+            </div>
+            <div class="item-label">
+                <label for="from-date" class="form-label">Data de início</label>
+                <input type="date" id="from-date" name="from-date" required readonly value="{{ expense_request.from_date|date:'d/m/Y' }}">
+            </div>
+            <div class="item-label conditional-field" id="recurrency-field">
+                <label for="recurrency" class="form-label">Recorrência</label>
+                <select name="recurrency" id="recurrency" disabled>
+                    <option value="{{ expense_request.recurrency.name }}" disabled selected>{{ expense_request.recurrency.name }}</option>
+                    {% for recurrency in recurrencies %}
+                        <option value="{{ recurrency.id }}">{{ recurrency.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="item-label">
+                <label for="name" class="form-label">Total Value</label>
+                <input type="text" id="name" name="name" readonly value="{{ expense_request.total_value }}">
+            </div>
+
+            <div class="item-label conditional-field" id="installments-field">
+                <label for="installments" class="form-label">Parcelas/Mêses</label>
+                <input type="number" id="installments" name="installments" readonly value="{{ expense_request.installments }}">
+            </div>
+            <div class="item-label conditional-field" id="installments-value-field">
+                <label for="installments-value" class="form-label">Valor das Parcelas/Mensalidades</label>
+                <input type="text" id="installments-value" name="installments-value" readonly value="{{ expense_request.installments_value}}">
             </div>
         </div>
         <hr>
         <div class="d-flex justify-content-end">
-            <button type="submit" class="btn-group-danger me-3">Approve</button>
+            <button type="submit" class="btn-group-danger me-3"> Reject </button>
             <button type="submit" class="btn-group-secondary">Approve</button>
         </div>
 
@@ -48,3 +91,7 @@
 {%  endblock %}
 
 {% block float-info %}{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'js/create_expense.js'%}" defer></script>
+{% endblock %}

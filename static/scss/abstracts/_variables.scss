@@ -13,11 +13,13 @@ $font-family: 'Outfit', serif;
 //Spacing
 .w-66 {
     min-width: 66%;
+    max-width: 66%;
 
 }
 
 .w-33 {
     min-width: 33%;
+    max-width: 33%;
 }
 
 .bg-primary-color {
@@ -34,6 +36,7 @@ $font-family: 'Outfit', serif;
 
 .bg-quaternary-color {
     background-color: $quaternary-color;
+    color: #fff;
 }
 
 // Mixins

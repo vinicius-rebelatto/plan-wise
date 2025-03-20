@@ -1,0 +1,48 @@
+.div-light, .div-quaternary{
+  padding: 1rem;
+  box-shadow: 0 0.8rem 1rem rgba(0, 0, 0, 0.15);
+  border-radius: 0.3rem;
+  width: 100%;
+}
+
+.div-light{
+  background-color: #f8f9fa;
+}
+
+.div-quaternary{
+  background-color: $quaternary-color;
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+    .div-light {
+        padding: 0.5rem; // Reduz o padding para telas pequenas
+    }
+}
+
+.container-75-25 {
+    display: grid;
+    grid-template-columns: 75% 25%;
+    gap: 1rem;
+    width: 100%;
+    max-width: 100%;
+    padding: 1rem;
+}
+
+.container-70-30 {
+  display: grid;
+    grid-template-columns: 70% 30%;
+    gap: 1rem;
+    width: 100%;
+  max-width: 100%;
+    padding: 1rem;
+}
+
+.container-50-50 {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    gap: 1rem;
+    width: 100%;
+    max-width: 100%;
+    padding: 1rem;
+}

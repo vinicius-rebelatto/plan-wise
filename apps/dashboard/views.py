@@ -18,10 +18,10 @@ def home(request):
 @login_required
 def all_expenses(request):
     expenses = Expense.objects.all()
-    categories = ExpenseCategory.objects.all()
+    #categories = ExpenseCategory.objects.all()
     contexto = {
-        'expenses': expenses,
-        'categories': categories,
+        'expenses': expenses[::-1],
+        #'categories': categories,
     }
     return render(request, './expenses.html', contexto)
 
@@ -55,8 +55,13 @@ def new_expense(request):
 
 @login_required()
 def expense_detail(request, expense_id):
+    expense = Expense.objects.get(pk=expense_id)
+    expense_request = ExpenseRequest.objects.get(expense=expense)
+    recurrency = Recurrency.objects.all()
     contexto = {
-        'expense': Expense.objects.get(pk=expense_id),
+        'expense': expense,
+        'expense_request': expense_request,
+        'recurrencies': recurrency,
     }
     return render(request, './expense_info.html', contexto)
 

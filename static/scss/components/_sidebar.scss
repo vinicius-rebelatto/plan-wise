@@ -1,14 +1,14 @@
 //static/scss/components/_sidebar.scss
 
 #sidebar {
-    width: 90px;
-    min-width: 90px;
-    height: 100vh; //Adicionei agora
+    width: 80px;
+    min-width: 80px;
+    height: 100vh;
     @include transition;
-    background-color: $secondary-color;
+    background-color: $primary-color;
     display: flex;
     flex-direction: column;
-
+    //position: fixed;
 
     &:not(.expand) {
         .sidebar-logo,
@@ -28,19 +28,30 @@
     }
 }
 
+.main {
+    width: 100%;
+    max-width: 100%;
+    //padding-left: 80px; // Padrão para sidebar recolhida
+    min-height: 100vh;
+    overflow: hidden;
+    background-color: $secondary-color;
+}
+
+
+
 .toggle-btn {
     width: 25px;
     height: 25px;
     border-radius: 0.425rem;
-    color: #fff;
+    color: $primary-color;
     font-size: 18px;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: $primary-color;
+    background-color: $secondary-color;
 
     i {
-        color: #fff;
+        color: $primary-color;
     }
 }
 
@@ -54,23 +65,24 @@
 }
 
 .sidebar-logo a {
-    color: $primary-color;
+    color: $secondary-color;
     font-size: 1.15rem;
     font-weight: 600;
 }
 
 a.sidebar-link {
     padding: 0.625rem 1.625rem;
-    color: $primary-color;
+    color: $secondary-color;
     display: block;
     white-space: nowrap;
-    font-weight: 700;
+    font-size: 14px;
+    font-weight: 600;
     border-left: 3px solid transparent;
     @include transition;
 
     &:hover {
-        background-color: $tertiary-color;
-        border-left: 3px solid $primary-color;
+        background-color: $quaternary-color;
+        border-left: 3px solid $secondary-color;
     }
 }
 
@@ -82,7 +94,7 @@ a.sidebar-link {
 
 .sidebar-link i,
 .dropdown-item i {
-    font-size: 1.15rem;
+    font-size: 1rem;
     margin-right: 0.75rem;
 }
 
@@ -90,12 +102,16 @@ a.sidebar-link {
     position: relative;
 }
 
+
+
+
+
 #sidebar:not(.expand) {
     .sidebar-item .sidebar-dropdown {
         position: absolute;
         top: 0;
         left: 90px;
-        background-color: $secondary-color;
+        background-color: $primary-color;
         padding: 0;
         min-width: 15em;
         display: none;
@@ -107,6 +123,9 @@ a.sidebar-link {
         max-height: 15em;
         width: 100%;
         opacity: 1;
+    }
+    .main{
+        padding-left: 80px;
     }
 }
 
@@ -121,12 +140,16 @@ a.sidebar-link {
         right: 1.5rem;
         top: 1.4rem;
         transform: rotate(-135deg);
-        @include transition(all, 0.2s, ease-out);
+        @include transition(all, 1s, ease-out);
     }
 
     .sidebar-link[data-bs-toggle="collapse"].collapsed::after {
         transform: rotate(45deg);
         @include transition(all, 0.2s, ease-out);
+    }
+
+    .main{
+        padding-left: 200px;
     }
 }
 
@@ -140,7 +163,7 @@ a.sidebar-link {
             content: "";
             height: 0.125rem;
             width: 0.375rem;
-            background-color: $primary-color;
+            background-color: $secondary-color;
             position: absolute;
             left: 1.8rem;
             top: 50%;
@@ -152,7 +175,7 @@ a.sidebar-link {
             background-color: transparent;
             border-left: 3px solid transparent;
             padding-left: 3.8rem;
-            color: $primary-color;
+            color: $quaternary-color;
         }
     }
 }

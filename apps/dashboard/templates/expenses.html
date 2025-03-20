@@ -7,62 +7,83 @@
 
 
 {% block content %}
+    <div class="container-75-25">
+        <!-- Tabela de despesas -->
+        <div class="div-light">
+            <div class="table__header">
+                {% block expenses_title %}<h4>All expenses</h4>{% endblock %}
 
-    <div class="p-4 bg-light shadow">
-        <div class="table__header">
-            <h2>Expenses</h2>
+                <div class="input-group bg-secondary-color">
+                    <input type="search" placeholder="Pesquisar...">
+                    <i class="bx bx-search"></i>
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                    <div class="btn-group-primary" id="filter-btn">
+                        <i class="bx bx-category"></i>
+                        <span>Export data</span>
+                    </div>
+                    <div class="btn-group-primary d-none" id="filter-btn">
+                        <i class="bx bx-filter"></i>
+                        <span>Filter by</span>
+                        <select id="filter-by">
+                            <option value="all">All</option>
+                            <option value="name">Despesa</option>
+                            <option value="description">Descrição</option>
+                            <option value="category">Categoria</option>
+                            <option value="status">Status</option>
+                            <option value="value">Valor</option>
+                            <option value="created_at">Data de criação</option>
+                        </select>
+                    </div>
+                    <a href="http://localhost:8000/dashboard/expenses/create/" class="btn-group-primary">
+                        <i class="bx bx-plus"></i>
+                        <span>New expense</span>
+                    </a>
+                </div>
 
-            <div class="input-group bg-secondary-color">
-                <input type="search" placeholder="Pesquisar...">
-                <i class="bx bx-search"></i>
             </div>
 
-            <a href="http://localhost:8000/dashboard/expenses/create/" class="btn-group-primary">
-                <i class="bx bx-plus"></i>
-                <span>New Expense</span>
-            </a>
-        </div>
+            <hr>
+            <!-- Tabela para exibir as despesas -->
 
-        <hr>
-        <!-- Tabela para exibir as despesas -->
-        <div class="table-container">
             <section class="table-body">
                 <table>
                     <thead>
-                        <tr>
-                            <th scope="col"><p>Despesa</p> <span class="icon-arrow"><i class='bx bx-sort-alt-2'></i></span></th>
-                            <th scope="col"><p>Descrição</p> <span class="icon-arrow"><i class='bx bx-sort-alt-2'></i></span></th>
-                            <th scope="col"><p>Categoria</p> <span class="icon-arrow"><i class='bx bx-sort-alt-2'></i></span></th>
-                            <th scope="col"><p>Status</p> <span class="icon-arrow"><i class='bx bx-sort-alt-2'></i></span></th>
-                            <th scope="col"><p>Valor</p> <span class="icon-arrow"><i class='bx bx-sort-alt-2'></i></span></th>
-                            <th scope="col"><p>Data de criação</p> <span class="icon-arrow"><i class='bx bx-sort-alt-2'></i></span></th>
-                        </tr>
+                    <tr>
+                        <th scope="col"><p>Despesa</p></th>
+                        <th scope="col"><p>Descrição</p></th>
+                        <th scope="col"><p>Categoria</p></th>
+                        <th scope="col"><p>Status</p></th>
+                        <th scope="col"><p>Valor</p></th>
+                        <th scope="col"><p>Data de criação</p></th>
+                    </tr>
                     </thead>
                     <tbody>
-                        {% for expense in expenses %}
-                            <tr>
-                                <td>{{ expense.name }}</td>
-                                <td><a href="http://localhost:8000/dashboard/expenses/{{ expense.id }}">{{ expense.description }}</a></td>
-                                <td>{{ expense.category }}</td>
-                                <td><p class="status p-1 rounded text-center {% if expense.status.name == 'Waiting for approval' %}text-bg-warning {% elif expense.status.name == 'Active' %}text-bg-success {% elif expense.status.name == 'Rejected' %}text-bg-danger {% elif expense.status.name == 'Closed' %} text-bg-secondary{% endif %}">{{ expense.status }}</p></td>
-                                <td>R${{ expense.value|floatformat:2 }}</td>
-                                <td>{{ expense.created_at|date:'d/m/Y' }}</td>
-                            </tr>
-
-                        {% endfor %}
+                    {% for expense in expenses %}
+                        <tr>
+                            <td>{{ expense.name }}</td>
+                            <td><a href="http://localhost:8000/dashboard/expenses/{{ expense.id }}">{{ expense.description }}</a></td>
+                            <td>{{ expense.category }}</td>
+                            <td><p class="status p-1 rounded text-center {% if expense.status.name == 'Waiting' %}text-bg-warning {% elif expense.status.name == 'Active' %}text-bg-success {% elif expense.status.name == 'Rejected' %}text-bg-danger {% elif expense.status.name == 'Closed' %} text-bg-secondary{% endif %}">{{ expense.status }}</p></td>
+                            <td>R${{ expenses_request.total_value|floatformat:2 }}</td>
+                            <td>{{ expense.created_at|date:'d/m/Y' }}</td>
+                        </tr>
+                    {% endfor %}
                     </tbody>
-
                 </table>
             </section>
-            <div class="">
-                <h5>Gráfico de Barras</h5>
-                <canvas id="chart2" width="300" height="150"></canvas>
+        </div>
+        <div class="d-flex flex-column gap-3">
+            <div class="div-light">
+                <h4>Expense by status</h4>
+            </div>
+            <div class="div-light">
+                <h4>Expense by category</h4>
+                <canvas id="chart2"></canvas>
             </div>
         </div>
 
-
     </div>
-
 
 {% endblock %}
 
