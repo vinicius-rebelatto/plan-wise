@@ -22,17 +22,12 @@
                         <i class="bx bx-category"></i>
                         <span>Export data</span>
                     </div>
-                    <div class="btn-group-primary d-none" id="filter-btn">
+                    <div class="btn-group-primary" id="filter-btn">
                         <i class="bx bx-filter"></i>
-                        <span>Filter by</span>
                         <select id="filter-by">
-                            <option value="all">All</option>
-                            <option value="name">Despesa</option>
-                            <option value="description">Descrição</option>
-                            <option value="category">Categoria</option>
-                            <option value="status">Status</option>
-                            <option value="value">Valor</option>
-                            <option value="created_at">Data de criação</option>
+                            <option value="active">Show active</option>
+                            <option value="all">Show all</option>
+                            <option value="waiting">Show waiting</option>
                         </select>
                     </div>
                     <a href="http://localhost:8000/dashboard/expenses/create/" class="btn-group-primary">

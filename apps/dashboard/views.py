@@ -66,6 +66,11 @@ def expense_detail(request, expense_id):
     return render(request, './expense_info.html', contexto)
 
 
+@login_required()
+def delete_expense(request, expense_id):
+    expense = Expense.objects.get(pk=expense_id)
+    expense.delete()
+    return redirect('expenses')
 
 
 def create_expenses(name, description, category_id, user):

@@ -1,3 +1,5 @@
+//static/js/create_expense.js
+
 document.addEventListener('DOMContentLoaded', function () {
     // Seletores
     const fixedTerm = document.querySelector('#fixed_term');
@@ -8,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const installmentsValueField = document.querySelector('#installments-value-field');
     const installmentsValueSelect = document.querySelector('#installments-value');
     const recurrency = document.querySelector('#recurrency');
+    const recurrencyField = document.querySelector('#recurrency-field');
 
     // Funções de Atualização de Campos
     function toggleField(field, isVisible, isRequired = false, isReadonly = false) {
@@ -37,18 +40,21 @@ document.addEventListener('DOMContentLoaded', function () {
             toggleField(installmentsField, true, true);
             toggleField(totalValueField, true, true);
             toggleField(installmentsValueField, true, true);
+            toggleField(recurrencyField, true, true);
             toggleRecurrency(false);
             handleRecurrencyChange();
         } else if (fixedTerm.value === 'False') {
             toggleField(installmentsValueField, true, true);
             toggleField(installmentsField, false);
             toggleField(totalValueField, false);
-            toggleRecurrency(true, 2); // Define recorrência mensal e desabilita
+            toggleField(recurrencyField, false);
+            toggleRecurrency(false, 2); // Define recorrência mensal
             installmentsSelect.value = 180; // Define 180 parcelas (15 anos)
         } else {
             toggleField(installmentsValueField, false);
             toggleField(installmentsField, false);
             toggleField(totalValueField, false);
+            toggleField(recurrencyField, true);
             toggleRecurrency(false);
         }
     }
@@ -89,7 +95,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Inicialização
     handleFixedTermChange();
-    handleRecurrencyChange();
 
     // Event Listeners
     fixedTerm.addEventListener('change', handleFixedTermChange);

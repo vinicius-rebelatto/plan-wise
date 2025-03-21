@@ -5,17 +5,20 @@
 {% block title %}View{% endblock %}
 
 {% block content %}
-    <!--<div class="m-2 mt-3">
+    <div class="mt-2 ms-3 mb-0 hov-right">
+        <a href="http://localhost:8000/dashboard/expenses/" class="btn-group-secondary">
+            <i class="bx bx-arrow-back"></i>
+            <span>Return</span>
+        </a>
+    </div>
 
-    </div>-->
     <div class="container-75-25">
         <div class="div-quaternary">
-            <div class="d-flex align-items-center gap-4 border-bottom border-secondary mb-3">
-                <a href="http://localhost:8000/dashboard/expenses/" class="bg-quaternary-color">
-                    <i class="bx bx-arrow-back"></i>
-                    <span>Return</span>
-                </a>
+            <div class="d-flex align-items-center justify-content-between border-bottom border-secondary p-1 mb-3">
                 <h5>{% block action-title %}{% endblock %}</h5>
+                <div class="btn-group-primary d-flex gap-2">
+                    {% block action-btn %}{% endblock %}
+                </div>
             </div>
 
             <div class="item-form">

@@ -24,10 +24,12 @@ $font-family: 'Outfit', serif;
 
 .bg-primary-color {
     background-color: $primary-color;
+    color: #fff;
 }
 
 .bg-secondary-color {
     background-color: $secondary-color;
+    color: $primary-color;
 }
 
 .bg-tertiary-color {
@@ -39,7 +41,45 @@ $font-family: 'Outfit', serif;
     color: #fff;
 }
 
+.hov-shadow:hover {
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+    cursor: pointer;
+}
+
+.hov-right:hover {
+    padding-left: .3rem;
+    transition: all 0.3s ease-in-out;
+}
+
+.hov-left:hover {
+    padding-right: .3rem;
+}
+
+.hov-up:hover {
+    margin-bottom: .2rem;
+    transition: all .3s ease-in-out;
+}
+
+.hov-red:hover{
+    color: red;
+    transition: all .3s ease-in-out;
+}
+
+.hov-black:hover{
+    transition: all .3s ease-in-out;
+    color: black;
+}
+
 // Mixins
 @mixin transition($property: all, $duration: 0.3s, $timing: ease-in-out) {
     transition: $property $duration $timing;
+}
+
+
+.font-size-18 i{
+    font-size: 18px;
+}
+
+.pointer {
+    cursor: pointer;
 }
