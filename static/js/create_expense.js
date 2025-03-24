@@ -45,9 +45,9 @@ document.addEventListener('DOMContentLoaded', function () {
             handleRecurrencyChange();
         } else if (fixedTerm.value === 'False') {
             toggleField(installmentsValueField, true, true);
-            toggleField(installmentsField, false);
-            toggleField(totalValueField, false);
-            toggleField(recurrencyField, false);
+            toggleField(installmentsField, false, true);
+            toggleField(totalValueField, false, true);
+            toggleField(recurrencyField, false, true);
             toggleRecurrency(false, 2); // Define recorrência mensal
             installmentsSelect.value = 180; // Define 180 parcelas (15 anos)
         } else {
@@ -93,8 +93,8 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // Inicialização
-    handleFixedTermChange();
+
+
 
     // Event Listeners
     fixedTerm.addEventListener('change', handleFixedTermChange);
@@ -102,4 +102,7 @@ document.addEventListener('DOMContentLoaded', function () {
     totalValueSelect.addEventListener('input', updateTotalValue);
     installmentsSelect.addEventListener('input', updateTotalValue);
     installmentsValueSelect.addEventListener('input', updateInstallmentsValue);
+
+    // Inicialização
+    handleFixedTermChange();
 });

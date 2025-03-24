@@ -41,14 +41,22 @@ $font-family: 'Outfit', serif;
     color: #fff;
 }
 
+.bg-success {
+    background-color: #008000;
+    color: #fff;
+}
+
 .hov-shadow:hover {
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
     cursor: pointer;
 }
 
+.hov-right:hover, .hov-left:hover, .hov-up:hover, .hov-red:hover, .hov-black:hover {
+    transition: all .3s ease-in-out;
+}
+
 .hov-right:hover {
     padding-left: .3rem;
-    transition: all 0.3s ease-in-out;
 }
 
 .hov-left:hover {
@@ -57,16 +65,13 @@ $font-family: 'Outfit', serif;
 
 .hov-up:hover {
     margin-bottom: .2rem;
-    transition: all .3s ease-in-out;
 }
 
 .hov-red:hover{
     color: red;
-    transition: all .3s ease-in-out;
 }
 
 .hov-black:hover{
-    transition: all .3s ease-in-out;
     color: black;
 }
 

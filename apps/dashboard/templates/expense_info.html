@@ -9,48 +9,44 @@
 {% block action-title %}Expense Informations{% endblock %}
 
 {% block action-btn %}
-    <div class="bg-quaternary-color font-size-18 pointer hov-red">
+    <div class="bg-quaternary-color font-size-18 pointer hov-red modal-btn">
         <i class="bx bx-trash"></i>
     </div>
-    <div class="bg-quaternary-color font-size-18 pointer hov-black">
+    <a class="bg-quaternary-color font-size-18 pointer hov-black" href="http://localhost:8000/dashboard/expenses/update/{{ expense.id }}">
         <i class="bx bxs-edit"></i>
-    </div>
+    </a>
 {% endblock %}
 
 {% block item-form %}
     <form method="POST">
         {% csrf_token %}
         <div class="form-labels">
-            <div class="item-label">
-                <label for="name" class="form-label">Expense</label>
-                <input type="text" id="name" name="name" readonly value="{{ expense.name }}">
+            <div class="item-label d-none">
+                <label for="expense_id" class="form-label">id</label>
+                <input type="number" id="expense_id" name="expense_id" readonly value="{{ expense.id }}">
             </div>
             <div class="item-label">
-                <label for="name" class="form-label">Description</label>
-                <input type="text" id="name" name="name" readonly value="{{ expense.description }}">
+                <label for="expense" class="form-label">Expense</label>
+                <input type="text" id="expense" name="expense" readonly value="{{ expense.name }}">
             </div>
             <div class="item-label">
-                <label for="name" class="form-label">Category</label>
-                <input type="text" id="name" name="name" readonly value="{{ expense.category }}">
+                <label for="description" class="form-label">Description</label>
+                <input type="text" id="description" name="description" readonly value="{{ expense.description }}">
             </div>
             <div class="item-label">
-                <label for="name" class="form-label">Status</label>
-                <input type="text" id="name" name="name" readonly value="{{ expense.status }}">
+                <label for="category" class="form-label">Category</label>
+                <input type="text" id="category" name="category" readonly value="{{ expense.category }}">
             </div>
             <div class="item-label">
-                <label for="name" class="form-label">Created At</label>
-                <input type="text" id="name" name="name" readonly value="{{ expense.created_at|date:'d/m/Y' }}">
-            </div>
-            <div class="item-label">
-                <label for="name" class="form-label">Last Update</label>
-                <input type="text" id="name" name="name" readonly value="{{ expense.updated_at|date:'d/m/Y' }}">
+                <label for="status" class="form-label">Status</label>
+                <input type="text" id="status" name="status" readonly value="{{ expense.status }}">
             </div>
             <div class="item-label">
                 <label for="fixed_cost" class="form-label">Custo fixo</label>
                 <select name="fixed_cost" id="fixed_cost" required disabled>
                     <option value="{{ expense_request.fixed_cost }}" disabled selected>{{ expense_request.fixed_cost }}</option>
-                    <option value=True>É custo fixo</option>
-                    <option value=False>É custo variável</option>
+                    <option value=True>Prazo determinado</option>
+                    <option value=False>Prazo indeterminado</option>
                 </select>
             </div>
             <div class="item-label">
@@ -63,7 +59,7 @@
             </div>
             <div class="item-label">
                 <label for="from-date" class="form-label">Data de início</label>
-                <input type="date" id="from-date" name="from-date" required readonly value="{{ expense_request.from_date|date:'d/m/Y' }}">
+                <input type="text" id="from-date" name="from-date" required readonly value="{{ expense_request.from_date|date:'d/m/Y' }}">
             </div>
             <div class="item-label conditional-field" id="recurrency-field">
                 <label for="recurrency" class="form-label">Recorrência</label>
@@ -75,8 +71,8 @@
                 </select>
             </div>
             <div class="item-label">
-                <label for="name" class="form-label">Total Value</label>
-                <input type="text" id="name" name="name" readonly value="{{ expense_request.total_value }}">
+                <label for="total-value" class="form-label">Total Value</label>
+                <input type="text" id="total-value" name="total-value" readonly value="{{ expense_request.total_value }}">
             </div>
 
             <div class="item-label conditional-field" id="installments-field">
@@ -87,13 +83,22 @@
                 <label for="installments-value" class="form-label">Valor da Mensalidade</label>
                 <input type="text" id="installments-value" name="installments-value" readonly value="{{ expense_request.installments_value}}">
             </div>
+            <div class="item-label">
+                <label for="created_at" class="form-label">Created At</label>
+                <input type="text" id="created_at" name="created_at" readonly value="{{ expense.created_at|date:'d/m/Y' }}">
+            </div>
+            <div class="item-label">
+                <label for="last_update" class="form-label">Last Update</label>
+                <input type="text" id="last_update" name="last_update" readonly value="{{ expense.updated_at|date:'d/m/Y' }}">
+            </div>
         </div>
+    {% if expense.status.id == 1 %}
         <hr>
         <div class="d-flex justify-content-end">
-            <button type="submit" class="btn-group-danger me-3 hov-shadow"> Reject </button>
-            <button type="submit" class="btn-group-secondary hov-shadow">Approve</button>
+            <div class="btn-group-danger me-3 hov-shadow" id="reject"> Reject </div>
+            <div class="btn-group-success hov-shadow" id="approve">Approve</div>
         </div>
-
+    {% endif %}
     </form>
     <!-- Modal de Confirmação de Exclusão -->
     <div id="deleteModal" class="modal">
@@ -101,7 +106,7 @@
             <div class="d-flex justify-content-end"><span class="close">&times;</span></div>
             <h6 class="m-3">Tem certeza que deseja excluir esta despesa?</h6>
             <div class="modal-actions">
-                <button id="confirmDelete" class="btn-group-danger">Excluir</button>
+                <button id="confirmDelete" class="btn-group-danger" href="http://localhost:8000/dashboard/expenses/delete/{{ expense.id }}">Excluir</button>
                 <button id="cancelDelete" class="btn-group-primary">Cancelar</button>
             </div>
         </div>
@@ -111,41 +116,7 @@
 {% block float-info %}{% endblock %}
 
 {% block scripts %}
-
-    <script src="{% static 'js/view_expense.js'%}" defer></script>
-    <script>
-        // Passa a URL de exclusão para o JavaScript
-        const deleteUrl = "{% url 'delete_expense' expense.id %}";
-
-        document.addEventListener('DOMContentLoaded', function () {
-            const deleteIcon = document.querySelector('.bx-trash');
-            const modal = document.getElementById('deleteModal');
-            const closeModal = document.querySelector('.close');
-            const cancelDelete = document.getElementById('cancelDelete');
-            const confirmDelete = document.getElementById('confirmDelete');
-
-            deleteIcon.addEventListener('click', function () {
-                modal.style.display = 'block';
-            });
-
-            closeModal.addEventListener('click', function () {
-                modal.style.display = 'none';
-            });
-
-            cancelDelete.addEventListener('click', function () {
-                modal.style.display = 'none';
-            });
-
-            window.addEventListener('click', function (event) {
-                if (event.target === modal) {
-                    modal.style.display = 'none';
-                }
-            });
-
-            confirmDelete.addEventListener('click', function () {
-                // Usa a URL de exclusão passada como variável
-                window.location.href = deleteUrl;
-            });
-        });
-    </script>
+    <script src="{% static 'js/create_expense.js'%}" defer></script>
+    <script src="{% static 'js/modal.js' %}" defer></script>
+    <script src="{% static 'js/expense_info.js' %}" defer></script>
 {% endblock %}

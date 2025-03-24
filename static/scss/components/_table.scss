@@ -69,7 +69,7 @@ td a:hover {
 
 .table-body {
     width: 100%;
-    height: calc(89% - .8rem);
+    height: 57vh;
     margin: .8rem auto;
     overflow-y: auto;
     // overflow-x: auto; // Remova ou use apenas em telas pequenas
@@ -85,7 +85,6 @@ td a:hover {
 table {
     font-size: 0.8rem;
     width: 100%;
-    //min-width: 500px;
     overflow: hidden;
     box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
 }

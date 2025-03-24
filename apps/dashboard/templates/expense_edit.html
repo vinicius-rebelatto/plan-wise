@@ -1,12 +1,18 @@
-<!--apps/dashboard/templates/create_expense.html -->
+<!--apps/dashboard/templates/expense_edit.html -->
 
 {% extends 'view_item.html' %}
 
 {% load static %}
 
-{% block title %}New Expense{% endblock %}
+{% block title %}View{% endblock %}
 
-{% block action-title %}Nova Despesa{% endblock %}
+{% block action-title %}Edit Expense{% endblock %}
+
+{% block action-btn %}
+    <a class="bg-quaternary-color font-size-18 pointer hov-left hov-black" href="http://localhost:8000/dashboard/expenses/{{ expense.id }}">
+        <i class="bx bx-arrow-back"></i>
+    </a>
+{% endblock %}
 
 {% block item-form %}
     <form method="POST">
@@ -14,25 +20,25 @@
         <div class="form-labels">
             <div class="item-label">
                 <label for="expense" class="form-label">Expense</label>
-                <input type="text" id="expense" name="expense"  placeholder="Expense name..." required>
+                <input type="text" id="expense" name="expense"  value="{{ expense.name }}" required>
             </div>
             <div class="item-label">
                 <label for="description" class="form-label">Description</label>
-                <input type="text" id="description" name="description"  placeholder="Description..." required>
+                <input type="text" id="description" name="description" value="{{ expense.description }}">
             </div>
             <div class="item-label">
                 <label for="category" class="form-label">Category</label>
                 <select name="category" id="category" required>
-                    <option value="" disabled selected>Selecione uma categoria</option>
+                    <option value={{ expense.category.id }}>{{ expense.category }}</option>
                     {% for category in categories %}
                         <option value="{{ category.id }}">{{ category.name }}</option>
                     {% endfor %}
                 </select>
             </div>
             <div class="item-label">
-                <label for="fixed_cost" class="form-label">Custo fixo</label>
+                <label for="fixed_cost" class="form-label">É custo fixo?</label>
                 <select name="fixed_cost" id="fixed_cost" required>
-                    <option value="" disabled selected>Selecione uma opção</option>
+                    <option value={{ expense_request.fixed_cost }} selected>{{ expense_request.fixed_cost }}</option>
                     <option value=True>É custo fixo</option>
                     <option value=False>É custo variável</option>
                 </select>
@@ -40,19 +46,20 @@
             <div class="item-label">
                 <label for="fixed_term" class="form-label">Prazo determinado</label>
                 <select name="fixed_term" id="fixed_term" required>
-                    <option value="" disabled selected>Selecione uma opção</option>
+                    <option value={{ expense_request.fixed_term }} selected>{{ expense_request.fixed_term }}</option>
                     <option value=True>Prazo determinado</option>
                     <option value=False>Prazo indeterminado</option>
                 </select>
             </div>
             <div class="item-label">
                 <label for="from-date" class="form-label">Data de início</label>
-                <input type="date" id="from-date" name="from-date" required>
+                <input type="date" id="from-date" name="from-date" required
+                       value="{{ expense_request.from_date|date:'Y-m-d' }}">
             </div>
             <div class="item-label conditional-field" id="recurrency-field">
                 <label for="recurrency" class="form-label">Recorrência</label>
                 <select name="recurrency" id="recurrency">
-                    <option value="" disabled selected>Selecione uma recorrência</option>
+                    <option value="{{ expense_request.recurrency.id }}" selected>{{ expense_request.recurrency.name }}</option>
                     {% for recurrency in recurrencies %}
                         <option value="{{ recurrency.id }}">{{ recurrency.name }}</option>
                     {% endfor %}
@@ -60,30 +67,42 @@
             </div>
             <div class="item-label conditional-field" id="total-value-field">
                 <label for="total-value" class="form-label">Valor total</label>
-                <input type="text" id="total-value" name="total-value"  placeholder="Value..." required>
+                <input type="text" id="total-value" name="total-value"  value="{{ expense_request.total_value }}" required>
             </div>
 
             <div class="item-label conditional-field" id="installments-field">
                 <label for="installments" class="form-label">Parcelas/Mêses</label>
-                <input type="number" id="installments" name="installments"  placeholder="Quantidade de parcelas...">
+                <input type="number" id="installments" name="installments"  value="{{ expense_request.installments }}">
             </div>
             <div class="item-label conditional-field" id="installments-value-field">
                 <label for="installments-value" class="form-label">Valor da Mensalidade</label>
-                <input type="text" id="installments-value" name="installments-value"  placeholder="Quantidade de parcelas...">
+                <input type="text" id="installments-value" name="installments-value" value="{{ expense_request.installments_value }}" required>
             </div>
 
         </div>
         <hr>
         <div class="d-flex justify-content-end">
-            <a href="http://localhost:8000/dashboard/expenses/" class="btn-group-danger me-3 hov-shadow"> Cancel</a>
-            <button type="submit" class="btn-group-success hov-shadow">Create</button>
+            <a href="http://localhost:8000/dashboard/expenses/{{ expense.id }}" class="btn-group-danger me-3 hov-shadow"> Cancelar</a>
+            <div class="btn-group-info hov-shadow modal-btn">Atualizar</div>
         </div>
-
+        <!-- Modal de Confirmação de Exclusão -->
+        <div id="deleteModal" class="modal">
+            <div class="modal-content">
+                <div class="d-flex justify-content-end"><span class="close">&times;</span></div>
+                <h6 class="m-3">Tem certeza que deseja alterar esta despesa?</h6>
+                <div class="modal-actions">
+                    <div type="submit" id="confirmDelete" class="btn-group-info me-2">Atualizar</div>
+                    <div id="cancelDelete" class="btn-group-primary">Cancelar</div>
+                </div>
+            </div>
+        </div>
     </form>
+
 {%  endblock %}
 
 {% block float-info %}{% endblock %}
 
 {% block scripts %}
     <script src="{% static 'js/create_expense.js'%}" defer></script>
+    <script src="{% static 'js/modal.js' %}" defer></script>
 {% endblock %}
