@@ -13,17 +13,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const recurrencyField = document.querySelector('#recurrency-field');
 
     // Funções de Atualização de Campos
-    function toggleField(field, isVisible, isRequired = false, isReadonly = false) {
+    function toggleField(field, isVisible, isRequired = false) {
         field.style.display = isVisible ? 'flex' : 'none';
         if (isRequired) {
             field.querySelector('input, select').setAttribute('required', true);
         } else {
             field.querySelector('input, select').removeAttribute('required');
-        }
-        if (isReadonly) {
-            field.querySelector('input, select').setAttribute('readonly', true);
-        } else {
-            field.querySelector('input, select').removeAttribute('readonly');
         }
     }
 
@@ -63,8 +58,8 @@ document.addEventListener('DOMContentLoaded', function () {
         updateTotalValue();
         if (recurrency.value === '1') { // Recorrência única
             installmentsSelect.value = 1;
-            toggleField(installmentsField, false, false, true);
-            toggleField(installmentsValueField, false, false, true);
+            toggleField(installmentsField, false, false);
+            toggleField(installmentsValueField, false, false);
         } else {
             toggleField(installmentsField, true);
             toggleField(installmentsValueField, true);

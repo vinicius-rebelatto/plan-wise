@@ -20,29 +20,26 @@
     }
 }
 
-.container-75-25 {
+.container-75-25, .container-70-30, .container-50-50, .container-80-20 {
     display: grid;
-    grid-template-columns: 75% 25%;
     gap: 1rem;
     width: 100%;
     max-width: 100%;
     padding: 1rem;
+}
+
+.container-80-20 {
+    grid-template-columns: 80% 20%;
+}
+
+.container-75-25 {
+    grid-template-columns: 75% 25%;
 }
 
 .container-70-30 {
-  display: grid;
     grid-template-columns: 70% 30%;
-    gap: 1rem;
-    width: 100%;
-  max-width: 100%;
-    padding: 1rem;
 }
 
 .container-50-50 {
-    display: grid;
     grid-template-columns: 50% 50%;
-    gap: 1rem;
-    width: 100%;
-    max-width: 100%;
-    padding: 1rem;
 }

@@ -50,6 +50,4 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-    //filterTable();
-    console.log('Script carregado');
 });

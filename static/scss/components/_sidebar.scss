@@ -3,7 +3,6 @@
 #sidebar {
     width: 80px;
     min-width: 80px;
-    height: 100vh;
     @include transition;
     background-color: $primary-color;
     display: flex;
@@ -20,7 +19,7 @@
     &.expand {
         width: 200px;
         min-width: 200px;
-
+        //height: 100%;
         .sidebar-logo,
         a.sidebar-link span {
             animation: fadeIn 0.3s ease;

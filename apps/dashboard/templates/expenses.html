@@ -49,19 +49,27 @@
                         <th scope="col"><p>Descrição</p></th>
                         <th scope="col"><p>Categoria</p></th>
                         <th scope="col"><p>Status</p></th>
+                        <th scope="col"><p>Data de início</p></th>
+                        <th scope="col"><p>Recorrência</p></th>
                         <th scope="col"><p>Valor</p></th>
                         <th scope="col"><p>Data de criação</p></th>
                     </tr>
                     </thead>
                     <tbody>
-                    {% for expense in expenses %}
+                    {% for expenses_request in expenses_requests %}
                         <tr>
-                            <td>{{ expense.name }}</td>
-                            <td><a href="http://localhost:8000/dashboard/expenses/{{ expense.id }}">{{ expense.description }}</a></td>
-                            <td>{{ expense.category }}</td>
-                            <td><p class="status p-1 rounded text-center {% if expense.status.name == 'Waiting' %}text-bg-warning {% elif expense.status.name == 'Active' %}text-bg-success {% elif expense.status.name == 'Rejected' %}text-bg-danger {% elif expense.status.name == 'Closed' %} text-bg-secondary{% endif %}">{{ expense.status }}</p></td>
-                            <td>R${{ expenses_request.total_value|floatformat:2 }}</td>
-                            <td>{{ expense.created_at|date:'d/m/Y' }}</td>
+                            <td>{{ expenses_request.expense.name }}</td>
+                            <td><a href="http://localhost:8000/dashboard/expenses/{{ expenses_request.expense.id }}">{{ expenses_request.expense.description }}</a></td>
+                            <td>{{ expenses_request.expense.category }}</td>
+                            <td><p class="status p-1 rounded text-center {% if expenses_request.expense.status.name == 'Waiting' %}text-bg-warning {% elif expenses_request.expense.status.name == 'Active' %}text-bg-success {% elif expenses_request.expense.status.name == 'Rejected' %}text-bg-danger {% elif expenses_request.expense.status.name == 'Closed' %} text-bg-secondary{% endif %}">{{ expenses_request.expense.status }}</p></td>
+                            <td>{{ expenses_request.from_date|date:'d/m/Y' }}</td>
+                            <td>{{ expenses_request.recurrency }}</td>
+                            <td>{% if expenses_request.fixed_term %}
+                            	 R${{ expenses_request.total_value|floatformat:2 }}
+                                {% else %}
+                                R${{ expenses_request.installments_value|floatformat:2 }}
+                            {% endif %}</td>
+                            <td>{{ expenses_request.expense.created_at|date:'d/m/Y' }}</td>
                         </tr>
                     {% endfor %}
                     </tbody>
@@ -69,20 +77,20 @@
             </section>
         </div>
         <div class="d-flex flex-column gap-3">
-            <div class="div-light">
+            <!--<div class="div-light">
                 <h4>Expense by status</h4>
-            </div>
-            <div class="div-light">
+            </div>-->
+            <div class="div-light position-relative mh-400">
                 <h4>Expense by category</h4>
-                <canvas id="chart2"></canvas>
+                <canvas id="chart_category"></canvas>
             </div>
         </div>
-
     </div>
+
 
 {% endblock %}
 
 {% block scripts %}
     <script src="{% static 'js/search_table.js' %}" defer></script>
-    <script src="{% static 'js/chart.js' %}" defer></script>
+    <script src="{% static 'js/charts/chart_category.js' %}" defer></script>
 {% endblock %}

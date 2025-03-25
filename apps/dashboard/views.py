@@ -17,10 +17,10 @@ def home(request):
 
 @login_required
 def all_expenses(request):
-    expenses = Expense.objects.all()
+    expenses_requests = ExpenseRequest.objects.all()
     #categories = ExpenseCategory.objects.all()
     contexto = {
-        'expenses': expenses[::-1],
+        'expenses_requests': expenses_requests[::-1],
         #'categories': categories,
     }
     return render(request, './expenses.html', contexto)
