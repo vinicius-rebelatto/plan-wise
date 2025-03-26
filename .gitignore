@@ -166,3 +166,5 @@ node_modules
 staticfiles
 
 migrations/
+
+static/
