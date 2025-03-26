@@ -1,8 +1,12 @@
 .div-light, .div-quaternary{
-  padding: 1rem;
+  padding: .8rem;
   box-shadow: 0 0.8rem 1rem rgba(0, 0, 0, 0.15);
-  border-radius: 0.3rem;
+  border-radius: 0.5rem;
   width: 100%;
+}
+
+.div-light h6{
+  margin: 0;
 }
 
 .div-light{

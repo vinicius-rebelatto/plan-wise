@@ -7,34 +7,53 @@
 
 
 {% block content %}
-    <div class="container-75-25">
+    <div class="container-80-20">
         <!-- Tabela de despesas -->
         <div class="div-light">
             <div class="table__header">
-                {% block expenses_title %}<h4>All expenses</h4>{% endblock %}
-
-                <div class="input-group bg-secondary-color">
+                <div class="d-flex align-items-center justify-content-between gap-4 mb-3">
+                    <h4>Expenses</h4>
+                    <div class="input-group bg-secondary-color">
                     <input type="search" placeholder="Pesquisar...">
                     <i class="bx bx-search"></i>
                 </div>
-                <div class="d-flex align-items-center gap-2">
-                    <div class="btn-group-primary" id="filter-btn">
-                        <i class="bx bx-category"></i>
-                        <span>Export data</span>
-                    </div>
-                    <div class="btn-group-primary" id="filter-btn">
-                        <i class="bx bx-filter"></i>
-                        <select id="filter-by">
-                            <option value="active">Show active</option>
-                            <option value="all">Show all</option>
-                            <option value="waiting">Show waiting</option>
-                        </select>
-                    </div>
-                    <a href="http://localhost:8000/dashboard/expenses/create/" class="btn-group-primary">
-                        <i class="bx bx-plus"></i>
-                        <span>New expense</span>
-                    </a>
                 </div>
+
+
+                <div class="d-flex align-items-center justify-content-between gap-2">
+                    <div class="d-flex">
+                        <div class="item-label-filter d-flex">
+                            <label for="start-date" class="form-label">De</label>
+                            <input type="date" id="start-date" name="start-date" required>
+                        </div>
+                        <div class="item-label-filter">
+                            <label for="end-date" class="form-label">Até</label>
+                            <input type="date" id="end-date" name="end-date">
+                        </div>
+                        <button type="button" id="filter-date" class="btn-group-primary">Filtrar</button>
+                    </div>
+
+                    <div class="d-flex align-items-center gap-2">
+
+                        <div class="btn-group-primary" id="filter-btn">
+                            <i class="bx bx-category"></i>
+                            <span>Export data</span>
+                        </div>
+                        <div class="btn-group-primary" id="filter-btn">
+                            <i class="bx bx-filter"></i>
+                            <select id="filter-by">
+                                <option value="active">Show active</option>
+                                <option value="all">Show all</option>
+                                <option value="waiting">Show waiting</option>
+                            </select>
+                        </div>
+                        <a href="http://localhost:8000/dashboard/expenses/create/" class="btn-group-primary">
+                            <i class="bx bx-plus"></i>
+                            <span>New expense</span>
+                        </a>
+                    </div>
+                </div>
+
 
             </div>
 
@@ -77,11 +96,20 @@
             </section>
         </div>
         <div class="d-flex flex-column gap-3">
-            <!--<div class="div-light">
-                <h4>Expense by status</h4>
-            </div>-->
+            <div class="d-md-flex flex-wrap justify-content-between align-items-center gap-2">
+                <div class="div-light d-flex justify-content-center">
+                    <h6>Total planned:  </h6>
+                </div>
+                <div class="div-light d-flex justify-content-center">
+                    <h6>Total planned:  </h6>
+                </div>
+                <div class="div-light d-flex justify-content-center">
+                    <h6>Total planned:  </h6>
+                </div>
+
+            </div>
             <div class="div-light position-relative mh-400">
-                <h4>Expense by category</h4>
+                <h5>Expense by category</h5>
                 <canvas id="chart_category"></canvas>
             </div>
         </div>

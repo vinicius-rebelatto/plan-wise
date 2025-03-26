@@ -33,7 +33,9 @@
     //padding-left: 80px; // Padrão para sidebar recolhida
     min-height: 100vh;
     overflow: hidden;
-    background-color: $secondary-color;
+    //background-color: $secondary-color;
+    background: rgb(251,251,255);
+    background: linear-gradient(353deg, rgba(251,251,255,1) 0%, rgba(99, 123, 161, 0.15) 100%);
 }
 
 

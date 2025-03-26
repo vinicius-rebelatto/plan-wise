@@ -32,9 +32,13 @@
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  padding: .4rem;
+  padding: .35rem;
   border-radius: 5px;
-  font-size: 13px;
+  font-size: 12px;
   border: none;
   cursor: pointer;
+}
+
+.btn-group-secondary:hover, .btn-group-danger:hover, .btn-group-primary:hover, .btn-group-info:hover, .btn-group-success:hover {
+  opacity: 0.9;
 }
