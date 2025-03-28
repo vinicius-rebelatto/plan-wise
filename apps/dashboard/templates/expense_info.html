@@ -113,6 +113,34 @@
     </div>
 {%  endblock %}
 
+{% block block-side %}
+        <section class="table-body shadow rounded">
+            <table>
+                <thead>
+                <tr>
+                    <th scope="col"><p>Vencimento</p></th>
+                    <th scope="col"><p>Valor</p></th>
+                    <th scope="col"><p>Status</p></th>
+                    <th scope="col"><p>Ação</p></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for payable in payables %}
+                    <tr>
+                        <td>{{ payable.due_date|date:'d/m/Y' }}</td>
+                        <td>{{ payable.amount }}</td>
+                        <td>{{ payable.status }}</td>
+                        <td class="d-flex justify-content-center gap-2">
+                            <div class="text-bg-warning d-flex justify-content-center p3 rounded">Editar</div>
+                            <div class="text-bg-success d-flex justify-content-center p3 rounded">Pagar</div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </section>
+{% endblock %}
+
 {% block float-info %}{% endblock %}
 
 {% block scripts %}

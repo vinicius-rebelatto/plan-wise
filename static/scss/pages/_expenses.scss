@@ -12,7 +12,7 @@
      margin: 0 10px 0 0;
 }
 
-.item-label-filter input, .item-label-filter select, .item-label-filter input[type="date"] {
+.item-label-filter input, .item-label-filter input[type="date"] {
     width: 100%; /* Ocupa 100% da largura do contêiner */
     max-width: 100%;
     box-sizing: border-box; /* Inclui padding e border na largura */
@@ -25,7 +25,6 @@
 }
 
 .item-label-filter input:focus,
-.item-label-filter select:focus,
 .item-label-filter input[type="date"]:focus {
   border-color: #66afe9; /* Cor da borda ao focar */
   box-shadow: 0 0 5px rgba(102, 175, 233, 0.5); /* Sombra ao focar */

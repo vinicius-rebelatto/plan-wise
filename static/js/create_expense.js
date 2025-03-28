@@ -12,6 +12,20 @@ document.addEventListener('DOMContentLoaded', function () {
     const recurrency = document.querySelector('#recurrency');
     const recurrencyField = document.querySelector('#recurrency-field');
 
+    function parseBrazilianNumber(value) {
+        if (typeof value === 'string') {
+            // Remove pontos (separadores de milhar) e substitui vírgula por ponto
+            return parseFloat(value.replace(/\./g, '').replace(',', '.'));
+        }
+        return parseFloat(value);
+    }
+
+    function formatBrazilianNumber(value) {
+        if (isNaN(value)) return '';
+        // Formata com 2 casas decimais e substitui ponto por vírgula
+        return value.toFixed(2).replace('.', ',');
+    }
+
     // Funções de Atualização de Campos
     function toggleField(field, isVisible, isRequired = false) {
         field.style.display = isVisible ? 'flex' : 'none';
@@ -67,22 +81,24 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function updateTotalValue() {
-        const totalValue = parseFloat(totalValueSelect.value);
-        const installments = parseFloat(installmentsSelect.value);
+        const totalValue = parseBrazilianNumber(totalValueSelect.value);
+        const installments = parseBrazilianNumber(installmentsSelect.value);
+
         if (!isNaN(totalValue) && !isNaN(installments) && totalValue > 0 && installments > 0) {
             const installmentValue = totalValue / installments;
-            installmentsValueSelect.value = installmentValue.toFixed(2);
+            installmentsValueSelect.value = formatBrazilianNumber(installmentValue);
         } else {
             installmentsValueSelect.value = '';
         }
     }
 
     function updateInstallmentsValue() {
-        const installmentsValue = parseFloat(installmentsValueSelect.value);
-        const installments = parseFloat(installmentsSelect.value);
+        const installmentsValue = parseBrazilianNumber(installmentsValueSelect.value);
+        const installments = parseBrazilianNumber(installmentsSelect.value);
+
         if (!isNaN(installmentsValue) && !isNaN(installments) && installmentsValue > 0 && installments > 0) {
             const totalValue = installmentsValue * installments;
-            totalValueSelect.value = totalValue.toFixed(2);
+            totalValueSelect.value = formatBrazilianNumber(totalValue);
         } else {
             totalValueSelect.value = '';
         }

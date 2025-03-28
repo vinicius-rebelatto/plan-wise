@@ -8,105 +8,110 @@
 
 {% block content %}
     <div class="container-80-20">
-        <!-- Tabela de despesas -->
-        <div class="div-light">
-            <div class="table__header">
-                <div class="d-flex align-items-center justify-content-between gap-4 mb-3">
-                    <h4>Expenses</h4>
-                    <div class="input-group bg-secondary-color">
-                    <input type="search" placeholder="Pesquisar...">
-                    <i class="bx bx-search"></i>
-                </div>
-                </div>
-
-
-                <div class="d-flex align-items-center justify-content-between gap-2">
-                    <div class="d-flex">
-                        <div class="item-label-filter d-flex">
-                            <label for="start-date" class="form-label">De</label>
-                            <input type="date" id="start-date" name="start-date" required>
-                        </div>
-                        <div class="item-label-filter">
-                            <label for="end-date" class="form-label">Até</label>
-                            <input type="date" id="end-date" name="end-date">
-                        </div>
-                        <button type="button" id="filter-date" class="btn-group-primary">Filtrar</button>
+            <!-- Tabela de despesas -->
+            <div class="div-light">
+                <div class="table__header">
+                    <div class="d-flex align-items-center justify-content-between gap-4 mb-3">
+                        <h4>Expenses</h4>
+                        <div class="input-group bg-secondary-color">
+                        <input type="search" placeholder="Pesquisar...">
+                        <i class="bx bx-search"></i>
+                    </div>
                     </div>
 
-                    <div class="d-flex align-items-center gap-2">
 
-                        <div class="btn-group-primary" id="filter-btn">
-                            <i class="bx bx-category"></i>
-                            <span>Export data</span>
+                    <div class="d-flex align-items-center justify-content-between gap-2">
+                        <div class="d-flex">
+                            <div class="item-label-filter d-flex">
+                                <label for="start-date" class="form-label">De</label>
+                                <input type="date" id="start-date" name="start-date" required>
+                            </div>
+                            <div class="item-label-filter">
+                                <label for="end-date" class="form-label">Até</label>
+                                <input type="date" id="end-date" name="end-date">
+                            </div>
+                            <button type="button" id="filter-date" class="btn-group-primary">Filtrar</button>
                         </div>
-                        <div class="btn-group-primary" id="filter-btn">
-                            <i class="bx bx-filter"></i>
-                            <select id="filter-by">
-                                <option value="active">Show active</option>
-                                <option value="all">Show all</option>
-                                <option value="waiting">Show waiting</option>
-                            </select>
+
+                        <div class="d-flex align-items-center gap-2">
+
+                            <div class="btn-group-primary d-none" id="filter-btn">
+                                <i class="bx bx-category"></i>
+                                <span>Export data</span>
+                            </div>
+                            <div class="btn-group-primary" id="filter-btn">
+                                <i class="bx bx-filter"></i>
+                                <select id="filter-by">
+                                    <option value="active">Show active</option>
+                                    <option value="all">Show all</option>
+                                    <option value="waiting">Show waiting</option>
+                                </select>
+                            </div>
+                            <a href="http://localhost:8000/dashboard/expenses/create/" class="btn-group-primary">
+                                <i class="bx bx-plus"></i>
+                                <span>New expense</span>
+                            </a>
                         </div>
-                        <a href="http://localhost:8000/dashboard/expenses/create/" class="btn-group-primary">
-                            <i class="bx bx-plus"></i>
-                            <span>New expense</span>
-                        </a>
                     </div>
+
+
                 </div>
 
+                <hr>
+                <!-- Tabela para exibir as despesas -->
 
-            </div>
-
-            <hr>
-            <!-- Tabela para exibir as despesas -->
-
-            <section class="table-body">
-                <table>
-                    <thead>
-                    <tr>
-                        <th scope="col"><p>Despesa</p></th>
-                        <th scope="col"><p>Descrição</p></th>
-                        <th scope="col"><p>Categoria</p></th>
-                        <th scope="col"><p>Status</p></th>
-                        <th scope="col"><p>Data de início</p></th>
-                        <th scope="col"><p>Recorrência</p></th>
-                        <th scope="col"><p>Valor</p></th>
-                        <th scope="col"><p>Data de criação</p></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for expenses_request in expenses_requests %}
+                <section class="table-body">
+                    <table>
+                        <thead>
                         <tr>
-                            <td>{{ expenses_request.expense.name }}</td>
-                            <td><a href="http://localhost:8000/dashboard/expenses/{{ expenses_request.expense.id }}">{{ expenses_request.expense.description }}</a></td>
-                            <td>{{ expenses_request.expense.category }}</td>
-                            <td><p class="status p-1 rounded text-center {% if expenses_request.expense.status.name == 'Waiting' %}text-bg-warning {% elif expenses_request.expense.status.name == 'Active' %}text-bg-success {% elif expenses_request.expense.status.name == 'Rejected' %}text-bg-danger {% elif expenses_request.expense.status.name == 'Closed' %} text-bg-secondary{% endif %}">{{ expenses_request.expense.status }}</p></td>
-                            <td>{{ expenses_request.from_date|date:'d/m/Y' }}</td>
-                            <td>{{ expenses_request.recurrency }}</td>
-                            <td>{% if expenses_request.fixed_term %}
-                            	 R${{ expenses_request.total_value|floatformat:2 }}
-                                {% else %}
-                                R${{ expenses_request.installments_value|floatformat:2 }}
-                            {% endif %}</td>
-                            <td>{{ expenses_request.expense.created_at|date:'d/m/Y' }}</td>
+                            <th scope="col"><p>Despesa</p></th>
+                            <th scope="col"><p>Descrição</p></th>
+                            <th scope="col"><p>Categoria</p></th>
+                            <th scope="col"><p>Status</p></th>
+                            <th scope="col"><p>Data de início</p></th>
+                            <th scope="col"><p>Recorrência</p></th>
+                            <th scope="col"><p>Valor</p></th>
+                            <th scope="col"><p>Data de criação</p></th>
                         </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-            </section>
+                        </thead>
+                        <tbody>
+                        {% for expenses_request in expenses_requests %}
+                            <tr>
+                                <td>{{ expenses_request.expense.name }}</td>
+                                <td><a href="http://localhost:8000/dashboard/expenses/{{ expenses_request.expense.id }}">{{ expenses_request.expense.description }}</a></td>
+                                <td>{{ expenses_request.expense.category }}</td>
+                                <td><p class="status p-1 rounded text-center {% if expenses_request.expense.status.name == 'Waiting' %}text-bg-warning {% elif expenses_request.expense.status.name == 'Active' %}text-bg-success {% elif expenses_request.expense.status.name == 'Rejected' %}text-bg-danger {% elif expenses_request.expense.status.name == 'Closed' %} text-bg-secondary{% endif %}">{{ expenses_request.expense.status }}</p></td>
+                                <td>{{ expenses_request.from_date|date:'d/m/Y' }}</td>
+                                <td>{{ expenses_request.recurrency }}</td>
+                                <td>{% if expenses_request.fixed_term %}
+                                     R${{ expenses_request.total_value|floatformat:2 }}
+                                    {% else %}
+                                    R${{ expenses_request.installments_value|floatformat:2 }}
+                                {% endif %}</td>
+                                <td>{{ expenses_request.expense.created_at|date:'d/m/Y' }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </section>
         </div>
         <div class="d-flex flex-column gap-3">
-            <div class="d-md-flex flex-wrap justify-content-between align-items-center gap-3">
-                <div class="div-light d-flex ">
-                    <h6>Amount planned:  </h6>
-                </div>
-                <div class="div-light d-flex ">
-                    <h6>Active expenses:  </h6>
-                </div>
-                <div class="div-light d-flex ">
-                    <h6>Waiting for approval:  </h6>
-                </div>
+            <div class="d-flex flex-column justify-content-between align-items-center gap-3 font-size-14">
 
+                <div class="w-100 d-flex justify-content-between align-items-center gap-3">
+                    <div class="div-light d-flex">
+                        <h6 class="p3">Active: </h6><h6 class="text-bg-success rounded p3">{{ active_expenses }}</h6>
+                    </div>
+                    <div class="div-light d-flex ">
+                        <h6 class="p3">Pending: </h6><h6 class="text-bg-warning p3 rounded">{{ waiting_expenses }}</h6>
+                    </div>
+                </div>
+                <div class="div-light d-flex ">
+                    <h6 class="p3">Planned to 2025: </h6><h6 class="text-bg-success rounded p3">R$ {{ amount_planned_2025 }}</h6>
+                </div>
+                <div class="div-light d-flex ">
+                    <h6 class="p3">Planned to 2026: </h6><h6 class="text-bg-success rounded p3">R$ {{ amount_planned_2026 }}</h6>
+                </div>
             </div>
             <div class="div-light position-relative mh-400">
                 <h5>Expense by category</h5>
@@ -114,11 +119,6 @@
             </div>
         </div>
     </div>
-{#    <div class="mt-3 container-80-20">#}
-{#        <div class="div-light">#}
-{#                <h4>Expense by status</h4>#}
-{#        </div>#}
-{#    </div>#}
 
 
 {% endblock %}

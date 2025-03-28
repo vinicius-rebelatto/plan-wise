@@ -5,16 +5,19 @@
 {% block title %}View{% endblock %}
 
 {% block content %}
-    <div class="mt-2 mb-0 hov-right">
-        <a href="http://localhost:8000/dashboard/expenses/" class="btn-group-secondary">
-            <i class="bx bx-arrow-back"></i>
-            <span>Return</span>
-        </a>
+    <div class="mt-2 mb-0">
+        <div class="hov-right w-fit">
+            <a href="http://localhost:8000/dashboard/expenses/" class="btn-group-secondary">
+                <i class="bx bx-arrow-back"></i>
+                <span>Return</span>
+            </a>
+        </div>
+
     </div>
 
-    <div class="container-75-25">
+    <div class="container-70-30">
         <div class="div-quaternary">
-            <div class="d-flex align-items-center justify-content-between border-bottom border-secondary p-1 mb-3">
+            <div class="d-flex align-items-center justify-content-between border-bottom border-secondary p-1 mb-2">
                 <h5>{% block action-title %}{% endblock %}</h5>
                 <div class="d-flex gap-3">
                     {% block action-btn %}{% endblock %}
@@ -25,14 +28,6 @@
                 {% block item-form %}{% endblock %}
             </div>
         </div>
-        <div class="d-flex flex-column gap-3">
-            <div class="div-light">
-                <h4>Expense by status</h4>
-            </div>
-            <div class="div-light">
-                <h4>Expense by category</h4>
-                <canvas id="chart2"></canvas>
-            </div>
-        </div>
+        {% block block-side %}{% endblock %}
     </div>
 {% endblock %}

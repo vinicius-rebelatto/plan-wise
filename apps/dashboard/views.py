@@ -1,10 +1,11 @@
 # apps/dashboard/views.py
 from django.contrib import messages  # Correção aqui
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q, Sum
 from django.shortcuts import render, redirect
 
-from apps.accounts.models import Account
-from apps.dashboard.models import Expense, ExpenseCategory, ExpenseStatus, Recurrency, ExpenseRequest, ApprovalStatus
+from apps.dashboard.models import Expense, ExpenseCategory, ExpenseStatus, Recurrency, ExpenseRequest, ApprovalStatus, \
+    Payable
 
 
 @login_required
@@ -17,11 +18,24 @@ def home(request):
 
 @login_required
 def all_expenses(request):
+
     expenses_requests = ExpenseRequest.objects.all()
-    #categories = ExpenseCategory.objects.all()
+
+    # Query 2025
+    amount_planned_2025 = Payable.objects.filter(
+        Q(status__name='Pending') and Q(due_date__year=2025)
+    ).aggregate(total=Sum('amount'))['total'] or 0
+    # Query 2026
+    amount_planned_2026 = Payable.objects.filter(
+        Q(status__name='Pending') and Q(due_date__year=2026)
+    ).aggregate(total=Sum('amount'))['total'] or 0
+
     contexto = {
-        'expenses_requests': expenses_requests[::-1],
-        #'categories': categories,
+        'expenses_requests': expenses_requests,
+        'amount_planned_2025': amount_planned_2025,
+        'amount_planned_2026': amount_planned_2026,
+        'active_expenses': Expense.objects.filter(status__name='Active').count(),
+        'waiting_expenses': Expense.objects.filter(status__name='Waiting').count(),
     }
     return render(request, './expenses.html', contexto)
 
@@ -57,11 +71,13 @@ def new_expense(request):
 def expense_detail(request, expense_id):
     expense = Expense.objects.get(pk=expense_id)
     expense_request = ExpenseRequest.objects.get(expense=expense)
+    payables = Payable.objects.filter(expense_request=expense_request)
     recurrency = Recurrency.objects.all()
     contexto = {
         'expense': expense,
         'expense_request': expense_request,
         'recurrencies': recurrency,
+        'payables': payables,
     }
     return render(request, './expense_info.html', contexto)
 
@@ -147,6 +163,7 @@ def create_expense_request(expense, fixed_cost, fixed_term, from_date, recurrenc
         installments_value = installments_value,
         approval_status=approval_status
     )
+    expense_req.create_payables()
     expense_req.save()
 
 

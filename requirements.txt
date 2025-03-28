@@ -3,3 +3,4 @@ python-decouple~=3.8
 python-decouple
 django-compressor
 django-libsass
+python-dateutil

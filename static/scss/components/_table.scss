@@ -65,8 +65,9 @@ td a:hover {
 
 .table-body {
     width: 100%;
-    height: 60vh;
-    margin: .8rem auto;
+    max-height: 63vh;
+    height: fit-content;
+    margin: 0 auto;
     overflow-y: auto;
     // overflow-x: auto; // Remova ou use apenas em telas pequenas
     border-radius: 0.4rem;

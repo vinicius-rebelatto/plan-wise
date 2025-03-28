@@ -1,8 +1,9 @@
 .div-light, .div-quaternary{
-  padding: .8rem;
+  padding: .7rem;
   box-shadow: 0 0.8rem 1rem rgba(0, 0, 0, 0.15);
   border-radius: 0.5rem;
   width: 100%;
+  height: fit-content;
 }
 
 .div-light h6{
@@ -24,7 +25,7 @@
     }
 }
 
-.container-75-25, .container-70-30, .container-50-50, .container-80-20 {
+.container-75-25, .container-70-30, .container-50-50, .container-80-20, .container-66-34 {
     display: grid;
     gap: 1rem;
     width: 100%;
@@ -42,6 +43,10 @@
 
 .container-70-30 {
     grid-template-columns: 70% 30%;
+}
+
+.container-66-34 {
+    grid-template-columns: 66% 34%;
 }
 
 .container-50-50 {
