@@ -167,4 +167,4 @@ staticfiles
 
 migrations/
 
-static
+static/
