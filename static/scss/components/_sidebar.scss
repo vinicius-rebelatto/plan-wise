@@ -76,7 +76,7 @@ a.sidebar-link {
     color: $secondary-color;
     display: block;
     white-space: nowrap;
-    font-size: 14px;
+    font-size: 17px;
     font-weight: 600;
     border-left: 3px solid transparent;
     @include transition;
@@ -95,7 +95,7 @@ a.sidebar-link {
 
 .sidebar-link i,
 .dropdown-item i {
-    font-size: 1rem;
+    font-size: 1.25rem;
     margin-right: 0.75rem;
 }
 

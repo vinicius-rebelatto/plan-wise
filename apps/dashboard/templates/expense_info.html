@@ -9,10 +9,10 @@
 {% block action-title %}Expense Informations{% endblock %}
 
 {% block action-btn %}
-    <div class="bg-quaternary-color font-size-18 pointer hov-red modal-btn">
+    <div class="bg-quaternary-color font-size-22 pointer hov-red modal-btn">
         <i class="bx bx-trash"></i>
     </div>
-    <a class="bg-quaternary-color font-size-18 pointer hov-black" href="http://localhost:8000/dashboard/expenses/update/{{ expense.id }}">
+    <a class="bg-quaternary-color font-size-22 pointer hov-black" href="http://localhost:8000/dashboard/expenses/update/{{ expense.id }}">
         <i class="bx bxs-edit"></i>
     </a>
 {% endblock %}
@@ -131,7 +131,7 @@
                         <td>{{ payable.amount }}</td>
                         <td>{{ payable.status }}</td>
                         <td class="d-flex justify-content-center gap-2">
-                            <div class="text-bg-warning d-flex justify-content-center p3 rounded">Editar</div>
+                            <!--<div class="text-bg-warning d-flex justify-content-center p3 rounded">Editar</div>-->
                             <div class="text-bg-success d-flex justify-content-center p3 rounded">Pagar</div>
                         </td>
                     </tr>

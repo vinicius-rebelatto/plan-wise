@@ -67,7 +67,7 @@
             </div>
             <div class="item-label conditional-field" id="total-value-field">
                 <label for="total-value" class="form-label">Valor total</label>
-                <input type="text" id="total-value" name="total-value"  value="{{ expense_request.total_value }}" required>
+                <input type="text" id="total-value" name="total-value" class="currency-input" value="{{ expense_request.total_value|floatformat:2 }}" required>
             </div>
 
             <div class="item-label conditional-field" id="installments-field">
@@ -76,7 +76,7 @@
             </div>
             <div class="item-label conditional-field" id="installments-value-field">
                 <label for="installments-value" class="form-label">Valor da Mensalidade</label>
-                <input type="text" id="installments-value" name="installments-value" value="{{ expense_request.installments_value }}" required>
+                <input type="text" id="installments-value" name="installments-value" class="currency-input" value="{{ expense_request.installments_value|floatformat:2 }}" required>
             </div>
 
         </div>

@@ -12,7 +12,7 @@
             <div class="div-light">
                 <div class="table__header">
                     <div class="d-flex align-items-center justify-content-between gap-4 mb-3">
-                        <h4>Expenses</h4>
+                        <h3>Expenses</h3>
                         <div class="input-group bg-secondary-color">
                         <input type="search" placeholder="Pesquisar...">
                         <i class="bx bx-search"></i>
@@ -42,8 +42,8 @@
                             <div class="btn-group-primary" id="filter-btn">
                                 <i class="bx bx-filter"></i>
                                 <select id="filter-by">
-                                    <option value="active">Show active</option>
                                     <option value="all">Show all</option>
+                                    <option value="active">Show active</option>
                                     <option value="waiting">Show waiting</option>
                                 </select>
                             </div>
@@ -83,7 +83,7 @@
                                 <td><p class="status p-1 rounded text-center {% if expenses_request.expense.status.name == 'Waiting' %}text-bg-warning {% elif expenses_request.expense.status.name == 'Active' %}text-bg-success {% elif expenses_request.expense.status.name == 'Rejected' %}text-bg-danger {% elif expenses_request.expense.status.name == 'Closed' %} text-bg-secondary{% endif %}">{{ expenses_request.expense.status }}</p></td>
                                 <td>{{ expenses_request.from_date|date:'d/m/Y' }}</td>
                                 <td>{{ expenses_request.recurrency }}</td>
-                                <td>{% if expenses_request.fixed_term %}
+                                <td>{% if expenses_request.recurrency == "Once" %}
                                      R${{ expenses_request.total_value|floatformat:2 }}
                                     {% else %}
                                     R${{ expenses_request.installments_value|floatformat:2 }}
@@ -96,7 +96,7 @@
                 </section>
         </div>
         <div class="d-flex flex-column gap-3">
-            <div class="d-flex flex-column justify-content-between align-items-center gap-3 font-size-14">
+            <div class="d-flex flex-column justify-content-between align-items-center gap-3">
 
                 <div class="w-100 d-flex justify-content-between align-items-center gap-3">
                     <div class="div-light d-flex">
