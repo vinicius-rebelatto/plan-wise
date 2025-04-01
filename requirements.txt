@@ -4,3 +4,4 @@ python-decouple
 django-compressor
 django-libsass
 python-dateutil
+celery

@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     legend: {
                         position: 'top',
                         labels: {
-                            padding: 5,
+                            padding: 3,
                             font: {
                                 size: 10,
                                 family: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif"

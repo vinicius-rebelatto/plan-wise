@@ -21,25 +21,23 @@ td a:hover {
 
 .table__header{
     width: 100%;
-    margin: .5rem auto;
+    margin: 0;
     overflow-y: auto;
     border-radius: 0.425rem;
 }
 
 .table__header .input-group {
-    width: 30%;
-    padding: 0 .9rem;
+    width: 32%;
+    padding: 0 .5rem;
     background-color: #ececec;
     border-radius: 2rem;
-
     display: flex;
-    align-items: center; // Centraliza verticalmente os itens
-
+    align-items: center;
     transition: all 0.3s ease-in-out;
 }
 
 .table__header .input-group:hover {
-    width: 32%;
+    width: 33%;
     background-color: #e2e5e6;
     border-radius: 2rem;
     cursor: pointer;
@@ -47,7 +45,7 @@ td a:hover {
 }
 
 .table__header .input-group i {
-    font-size: 1.4rem;
+    font-size: 1rem;
     flex-shrink: 0; // Impede que o ícone diminua de tamanho
 }
 
@@ -80,7 +78,7 @@ td a:hover {
 }
 
 table {
-    font-size: 1rem;
+    font-size: 0.8rem;
     width: 100%;
     overflow: hidden;
     box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);

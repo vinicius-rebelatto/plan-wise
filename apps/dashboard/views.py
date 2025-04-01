@@ -2,10 +2,12 @@
 from django.contrib import messages  # Correção aqui
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q, Sum
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
+from django.views.decorators.cache import cache_page
 
 from apps.dashboard.models import Expense, ExpenseCategory, ExpenseStatus, Recurrency, ExpenseRequest, ApprovalStatus, \
-    Payable
+    Payable, ExpenseForecast
 
 
 @login_required
@@ -18,22 +20,24 @@ def home(request):
 
 @login_required
 def all_expenses(request):
-
+    forecasts = ExpenseForecast.objects.all()
     expenses_requests = ExpenseRequest.objects.all().order_by('-updated_at')
 
     # Query 2025
     amount_planned_2025 = Payable.objects.filter(
-        Q(status__name='Pending') and Q(due_date__year=2025)
+        Q(status__name='Pending') & Q(due_date__year=2025)
     ).aggregate(total=Sum('amount'))['total'] or 0
     # Query 2026
     amount_planned_2026 = Payable.objects.filter(
-        Q(status__name='Pending') and Q(due_date__year=2026)
+        Q(status__name='Pending') & Q(due_date__year=2026)
     ).aggregate(total=Sum('amount'))['total'] or 0
 
     contexto = {
         'expenses_requests': expenses_requests,
         'amount_planned_2025': amount_planned_2025,
         'amount_planned_2026': amount_planned_2026,
+        'teste_2025': forecasts.filter(year=2025).aggregate(Sum('amount'))['amount__sum'],
+        'teste_2026': forecasts.filter(year=2026).aggregate(Sum('amount'))['amount__sum'],
         'active_expenses': Expense.objects.filter(status__name='Active').count(),
         'waiting_expenses': Expense.objects.filter(status__name='Waiting').count(),
     }
@@ -203,3 +207,30 @@ def approve_expense(request, expense_id):
     expense_request.save()
 
     return redirect('expenses')  # Redireciona para a lista de despesas
+
+
+
+#@cache_page(60 * 15)  # Cache por 15 minutos (opcional)
+def expenses_forecast_api(request):
+    forecast = ExpenseForecast.objects.all()
+
+    data = [
+        {
+            'id': f.id,
+            'year': f.year,
+            'month': f.month,
+            'month_name': get_month_name(f.month),  # Função auxiliar
+            'amount': float(f.amount),
+            'formatted_date': f"{f.month:02d}/{f.year}",
+            'formatted_amount': f"R$ {f.amount:,.2f}".replace(',', 'X').replace('.', ',').replace('X', '.')
+        }
+        for f in forecast
+    ]
+
+    return JsonResponse(data, safe=False)
+
+
+# Função auxiliar para pegar nome do mês
+def get_month_name(month):
+    from datetime import datetime
+    return datetime.strptime(str(month), "%m").strftime("%B")

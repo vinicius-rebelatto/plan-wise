@@ -9,10 +9,10 @@
 {% block action-title %}Expense Informations{% endblock %}
 
 {% block action-btn %}
-    <div class="bg-quaternary-color font-size-22 pointer hov-red modal-btn">
+    <div class="bg-quaternary-color font-size-18 pointer hov-red modal-btn">
         <i class="bx bx-trash"></i>
     </div>
-    <a class="bg-quaternary-color font-size-22 pointer hov-black" href="http://localhost:8000/dashboard/expenses/update/{{ expense.id }}">
+    <a class="bg-quaternary-color font-size-18 pointer hov-black" href="http://localhost:8000/dashboard/expenses/update/{{ expense.id }}">
         <i class="bx bxs-edit"></i>
     </a>
 {% endblock %}
@@ -113,33 +113,33 @@
     </div>
 {%  endblock %}
 
-{% block block-side %}
-        <section class="table-body shadow rounded">
-            <table>
-                <thead>
-                <tr>
-                    <th scope="col"><p>Vencimento</p></th>
-                    <th scope="col"><p>Valor</p></th>
-                    <th scope="col"><p>Status</p></th>
-                    <th scope="col"><p>Ação</p></th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for payable in payables %}
-                    <tr>
-                        <td>{{ payable.due_date|date:'d/m/Y' }}</td>
-                        <td>{{ payable.amount }}</td>
-                        <td>{{ payable.status }}</td>
-                        <td class="d-flex justify-content-center gap-2">
-                            <!--<div class="text-bg-warning d-flex justify-content-center p3 rounded">Editar</div>-->
-                            <div class="text-bg-success d-flex justify-content-center p3 rounded">Pagar</div>
-                        </td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-        </section>
-{% endblock %}
+{#{% block block-side %}#}
+{#        <section class="table-body shadow rounded">#}
+{#            <table>#}
+{#                <thead>#}
+{#                <tr>#}
+{#                    <th scope="col"><p>Vencimento</p></th>#}
+{#                    <th scope="col"><p>Valor</p></th>#}
+{#                    <th scope="col"><p>Status</p></th>#}
+{#                    <th scope="col"><p>Ação</p></th>#}
+{#                </tr>#}
+{#                </thead>#}
+{#                <tbody>#}
+{#                {% for payable in payables %}#}
+{#                    <tr>#}
+{#                        <td>{{ payable.due_date|date:'d/m/Y' }}</td>#}
+{#                        <td>{{ payable.amount }}</td>#}
+{#                        <td>{{ payable.status }}</td>#}
+{#                        <td class="d-flex justify-content-center gap-2">#}
+{#                            <!--<div class="text-bg-warning d-flex justify-content-center p3 rounded">Editar</div>-->#}
+{#                            <div class="text-bg-success d-flex justify-content-center p3 rounded">Pagar</div>#}
+{#                        </td>#}
+{#                    </tr>#}
+{#                {% endfor %}#}
+{#                </tbody>#}
+{#            </table>#}
+{#        </section>#}
+{#{% endblock %}#}
 
 {% block float-info %}{% endblock %}
 
@@ -147,4 +147,5 @@
     <script src="{% static 'js/create_expense.js'%}" defer></script>
     <script src="{% static 'js/modal.js' %}" defer></script>
     <script src="{% static 'js/expense_info.js' %}" defer></script>
+    <script src="{% static 'js/charts/chart_forecast.js' %}" defer></script>
 {% endblock %}

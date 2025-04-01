@@ -1,5 +1,7 @@
 #apps/dashboard/models.py
 from django.db import models
+from django.db.models import Sum
+
 from apps.accounts.models import Account
 from dateutil.relativedelta import relativedelta
 from datetime import date
@@ -93,6 +95,9 @@ class ExpenseRequest(models.Model):
             except Exception as e:
                 raise ValueError(f"Error creating payable for month {month}: {str(e)}")
 
+        # Atualiza o forecast após criar os payables
+        ExpenseForecast.update_forecast()
+
         return self.payables.all()
 
 
@@ -112,3 +117,56 @@ class Payable(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     def __str__(self):
         return f'{self.expense.name} - {self.due_date}'
+
+
+class ExpenseForecast(models.Model):
+    year = models.IntegerField(blank=False, null=False)
+    month = models.IntegerField(blank=False, null=False)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        unique_together = ('year', 'month')
+
+    @classmethod
+    def update_forecast(cls):
+        # Pega todos os payables pendentes
+        payables = Payable.objects.filter(status__name="Pending")
+
+
+
+        # Primeiro obtém todos os anos/meses atuais no forecast
+        current_forecasts = cls.objects.all()
+        current_keys = {(f.year, f.month) for f in current_forecasts}
+        new_keys = set()
+
+        # Agrega por ano e mês
+        from django.db.models.functions import ExtractYear, ExtractMonth
+        aggregates = payables.annotate(
+            year=ExtractYear('due_date'),
+            month=ExtractMonth('due_date')
+        ).values('year', 'month').annotate(
+            total=Sum('amount')
+        ).order_by('year', 'month')
+
+        # Atualiza ou cria os forecasts
+        for agg in aggregates:
+            year = agg['year']
+            month = agg['month']
+            total = agg['total']
+
+            # Adiciona à lista de chaves atuais
+            new_keys.add((year, month))
+
+            # Atualiza ou cria o registro
+            cls.objects.update_or_create(
+                year=year,
+                month=month,
+                defaults={'amount': total}
+            )
+
+        # Remove forecasts que não têm mais payables
+        keys_to_delete = current_keys - new_keys
+        for year, month in keys_to_delete:
+            cls.objects.filter(year=year, month=month).delete()

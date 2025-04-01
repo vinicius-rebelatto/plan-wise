@@ -1,14 +1,10 @@
 //static/components/_view_item.scss
 
-/*.content-info {
-  width: 100%;
-  min-height: 500px;
-}*/
-
-/*.item-info, .float-info, .item-graphic {
-  margin: 10px;
-  padding: 1rem;
-}*/
+.item-form{
+  height: fit-content;
+  display: flex;
+  align-items: center;
+}
 
 .float-info {
   width: 25%;
@@ -32,7 +28,7 @@
 .item-label {
     flex: 1 1 200px; /* Faz com que os itens se expandam igualmente */
     min-width: 150px; /* Largura mínima para evitar que fiquem muito pequenos */
-    font-size: .9rem;
+    font-size: .8rem;
     display: flex;
     flex-direction: column;
 }
@@ -41,7 +37,7 @@
     width: 100%; /* Ocupa 100% da largura do contêiner */
     max-width: 100%;
     box-sizing: border-box; /* Inclui padding e border na largura */
-    padding: 3px;
+    padding: 2px 4px;
     border: 1px solid #ccc;
     border-radius: 5px;
     background-color: #fff;
