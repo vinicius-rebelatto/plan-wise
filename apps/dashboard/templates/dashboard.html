@@ -8,8 +8,39 @@
 {% block content %}
     <div class="border-bottom d-flex">
         <div class="w-66 p-4">
-            <h2>Gráfico de Barras</h2>
-            <canvas id="forecast-container" width="400" height="200"></canvas>
+            <div class="div-light p-4">
+                <div>
+                    <div class="d-flex justify-content-between">
+                        <h4 class="mb-3">Expenses forecast</h4>
+                        <button type="button" id="forecast-filter-button" class="btn-group-primary">Filtrar</button>
+                    </div>
+
+                    <div class="filter-container">
+                        <div class="filter-group">
+                            <div class="filter-item">
+                                <label for="forecast-start-date" class="filter-label">De</label>
+                                <input type="date" id="forecast-start-date" class="filter-input" name="forecast-start-date" required>
+                            </div>
+                            <div class="filter-item">
+                                <label for="forecast-end-date" class="filter-label">Até</label>
+                                <input type="date" id="forecast-end-date" class="filter-input" name="forecast-end-date">
+                            </div>
+                        </div>
+
+                        <div class="filter-group">
+                            <div class="filter-item">
+                                <label for="forecast-min-value" class="filter-label">Menor valor</label>
+                                <input type="number" id="forecast-min-value" class="filter-input" name="forecast-min-value" placeholder="R$">
+                            </div>
+                            <div class="filter-item">
+                                <label for="forecast-max-value" class="filter-label">Maior valor</label>
+                                <input type="number" id="forecast-max-value" class="filter-input" name="forecast-max-value" placeholder="R$">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <canvas id="forecast-container" width="400" height="200"></canvas>
+            </div>
         </div>
     </div>
 

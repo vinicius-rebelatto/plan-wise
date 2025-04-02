@@ -210,6 +210,23 @@ def approve_expense(request, expense_id):
 
 
 
+#APIs do sistema
+def expense_payable_api(request, expense_id):
+    expense = Expense.objects.get(pk=expense_id)
+    payable = Payable.objects.filter(expense=expense)
+    data = [
+        {
+            'id': p.id,
+            'due_date': p.due_date,
+            'amount': p.amount,
+            'status': p.status.name
+        }
+        for p in payable
+    ]
+
+    return JsonResponse(data, safe=False)
+
+
 #@cache_page(60 * 15)  # Cache por 15 minutos (opcional)
 def expenses_forecast_api(request):
     forecast = ExpenseForecast.objects.all()

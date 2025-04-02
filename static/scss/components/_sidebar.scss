@@ -3,11 +3,15 @@
 #sidebar {
     width: 80px;
     min-width: 80px;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
     @include transition;
     background-color: $primary-color;
     display: flex;
     flex-direction: column;
-    //position: fixed;
+    z-index: 1000;
 
     &:not(.expand) {
         .sidebar-logo,
@@ -27,15 +31,27 @@
     }
 }
 
-.main {
+.sideabar-content {
     width: 100%;
-    max-width: 100%;
-    //padding-left: 80px; // Padrão para sidebar recolhida
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main {
+    width: calc(100% - 80px);
+    margin-left: 80px; // Padrão para sidebar recolhida
     min-height: 100vh;
-    overflow: hidden;
+    overflow: auto;
     //background-color: $secondary-color;
     background: rgb(251,251,255);
     background: linear-gradient(353deg, rgba(251,251,255,1) 0%, rgba(99, 123, 161, 0.15) 100%);
+
+    .expand {
+        width: calc(100% - 200px);
+        margin-left: 200px;
+    }
 }
 
 
@@ -88,6 +104,7 @@ a.sidebar-link {
 }
 
 .sidebar-nav {
+    width: 100%;
     padding: 0.7rem 0;
     flex: 1 1 auto;
     z-index: 10;
@@ -102,9 +119,6 @@ a.sidebar-link {
 .sidebar-item {
     position: relative;
 }
-
-
-
 
 
 #sidebar:not(.expand) {
@@ -125,9 +139,6 @@ a.sidebar-link {
         width: 100%;
         opacity: 1;
     }
-    .main{
-        padding-left: 80px;
-    }
 }
 
 #sidebar.expand {
@@ -147,10 +158,6 @@ a.sidebar-link {
     .sidebar-link[data-bs-toggle="collapse"].collapsed::after {
         transform: rotate(45deg);
         @include transition(all, 0.2s, ease-out);
-    }
-
-    .main{
-        padding-left: 200px;
     }
 }
 

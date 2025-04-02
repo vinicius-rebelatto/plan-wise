@@ -11,4 +11,5 @@ urlpatterns = [
     path('expenses/update/<int:expense_id>/', views.edit_expense, name='update_expense'),
     path('expenses/approve/<int:expense_id>/', views.approve_expense, name='approve_expense'),
     path('api/expenses_forecast/', views.expenses_forecast_api, name='api_expenses_forecast'),
+    path('api/expense/payable/<int:expense_id>/', views.expense_payable_api, name='api_payable'),
 ]
