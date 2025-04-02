@@ -61,7 +61,7 @@ def new_expense(request):
             recurrency = request.POST['recurrency']
             installments = request.POST['installments']
             create_expense_request(expense, fixed_cost, fixed_term, from_date, recurrency, total_value, installments, installments_value)
-            return redirect('expense_detail', expense.id)
+            return redirect('expenses')
         except (ValueError, KeyError) as e:
             messages.error(request, f"Erro ao processar os valores fornecidos: {str(e)}")
             return redirect('create_expense')
